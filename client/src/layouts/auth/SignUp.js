@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import {
 	Avatar,
 	Button,
@@ -52,6 +53,27 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignUpForm = ({ classes }) => {
+	const [signupInfo, setSignupInfo] = useState({
+		firstName: '',
+		lastName: '',
+		email: '',
+		password: '',
+		password2: '',
+	});
+
+	const onChange = (e) =>
+		setSignupInfo({ ...signupInfo, [e.target.name]: e.target.value });
+
+	const onSubmit = (e) => {
+		e.preventDefault();
+
+		if (signupInfo.password !== signupInfo.password2) {
+			console.log('Passwords do not match');
+		} else {
+			console.log(signupInfo);
+		}
+	};
+
 	return (
 		<div className={classes.formContainer}>
 			<Avatar className={classes.avatar}>
@@ -60,7 +82,7 @@ const SignUpForm = ({ classes }) => {
 			<Typography component='h1' variant='h5' className={classes.typography}>
 				Sign Up
 			</Typography>
-			<form action='' className={classes.form}>
+			<form action='' className={classes.form} onSubmit={onSubmit}>
 				<TextField
 					variant='outlined'
 					margin='normal'
@@ -70,6 +92,7 @@ const SignUpForm = ({ classes }) => {
 					label='First Name'
 					name='firstName'
 					autoFocus
+					onChange={onChange}
 				/>
 				<TextField
 					variant='outlined'
@@ -79,6 +102,7 @@ const SignUpForm = ({ classes }) => {
 					id='lastName'
 					label='Last Name'
 					name='lastName'
+					onChange={onChange}
 				/>
 				<TextField
 					variant='outlined'
@@ -89,6 +113,7 @@ const SignUpForm = ({ classes }) => {
 					label='Email Address'
 					name='email'
 					autoComplete='email'
+					onChange={onChange}
 				/>
 				<TextField
 					variant='outlined'
@@ -100,6 +125,19 @@ const SignUpForm = ({ classes }) => {
 					type='password'
 					id='password'
 					autoComplete='current-password'
+					onChange={onChange}
+				/>
+				<TextField
+					variant='outlined'
+					margin='normal'
+					required
+					fullWidth
+					name='password2'
+					label='Repeat Password'
+					type='password'
+					id='password2'
+					autoComplete='current-password'
+					onChange={onChange}
 				/>
 				<Button
 					type='submit'
@@ -111,7 +149,9 @@ const SignUpForm = ({ classes }) => {
 				</Button>
 				<Grid container justify='flex-end'>
 					<Grid item>
-						<Link variant='body2'>{'Already have an account? Sign Up'}</Link>
+						<RouterLink to='/auth/signin'>
+							<Link variant='body2'>{'Already have an account? Sign In'}</Link>
+						</RouterLink>
 					</Grid>
 				</Grid>
 			</form>
@@ -124,14 +164,14 @@ const SignUp = () => {
 	return (
 		<Grid container className={classes.root}>
 			<CssBaseline />
-			<Grid item xs={7}>
+			<Grid item xs={false} sm={4} md={7}>
 				<img
 					src={Illustration}
 					alt='Authentication illustration'
 					className={classes.illustration}
 				/>
 			</Grid>
-			<Grid item xs={5}>
+			<Grid item xs={12} sm={8} md={5}>
 				<SignUpForm classes={classes} />
 			</Grid>
 		</Grid>

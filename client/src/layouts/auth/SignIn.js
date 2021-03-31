@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Link as RouterLink } from 'react-router-dom';
 import {
 	Avatar,
 	Button,
@@ -54,6 +55,19 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignInForm = ({ classes }) => {
+	const [signinInfo, setSigninInfo] = useState({
+		email: '',
+		password: '',
+	});
+
+	const onChange = (e) =>
+		setSigninInfo({ ...signinInfo, [e.target.name]: e.target.value });
+
+	const onSubmit = (e) => {
+		e.preventDefault();
+		console.log(signinInfo);
+	};
+
 	return (
 		<div className={classes.formContainer}>
 			<Avatar className={classes.avatar}>
@@ -62,7 +76,7 @@ const SignInForm = ({ classes }) => {
 			<Typography component='h1' variant='h5' className={classes.typography}>
 				Sign In
 			</Typography>
-			<form action='' className={classes.form}>
+			<form action='' className={classes.form} onSubmit={onSubmit}>
 				<TextField
 					variant='outlined'
 					margin='normal'
@@ -73,6 +87,7 @@ const SignInForm = ({ classes }) => {
 					name='email'
 					autoComplete='email'
 					autoFocus
+					onChange={onChange}
 				/>
 				<TextField
 					variant='outlined'
@@ -84,6 +99,7 @@ const SignInForm = ({ classes }) => {
 					type='password'
 					id='password'
 					autoComplete='current-password'
+					onChange={onChange}
 				/>
 				<Button
 					type='submit'
@@ -95,7 +111,9 @@ const SignInForm = ({ classes }) => {
 				</Button>
 				<Grid container justify='flex-end'>
 					<Grid item>
-						<Link variant='body2'>{"Don't have an account? Sign Up"}</Link>
+						<RouterLink to='/auth/signup'>
+							<Link variant='body2'>{"Don't have an account? Sign Up"}</Link>
+						</RouterLink>
 					</Grid>
 				</Grid>
 			</form>
