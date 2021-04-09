@@ -9,7 +9,8 @@ import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import theme from './theme';
 
 import { SignIn, SignUp } from './layouts/auth';
-import { dashboard } from './layouts/dashboard';
+import { dashboard, Dashboard2 } from './layouts/dashboard';
+import Sidebar from './components/Sidebar';
 
 const App = () => {
 	return (
@@ -20,6 +21,7 @@ const App = () => {
 					<Switch>
 						<Route path='/auth' component={AuthRouting} />
 						<Route path='/dashboard' component={DashboardRouting} />
+						<Route path='/dashboard/sidebar' component={Sidebar} />
 					</Switch>
 				</div>
 			</Router>
@@ -40,7 +42,7 @@ const AuthRouting = () => {
 const DashboardRouting = () => {
 	return (
 		<Switch>
-			<Route path='/dashboard' exact component={dashboard} />
+			<Route path='/dashboard' exact component={Dashboard2} />
 		</Switch>
 	);
 };

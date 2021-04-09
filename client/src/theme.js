@@ -15,7 +15,7 @@ const theme = createMuiTheme({
 		component: {
 			light: '#FFFFFF',
 			main: '#EEEEEE',
-			dark: '#77777',
+			dark: '#777777',
 		},
 		text: {
 			main: '#01192F',
