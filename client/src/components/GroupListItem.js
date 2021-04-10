@@ -1,11 +1,12 @@
 import React from 'react';
-import { Avatar, Button, Typography, makeStyles } from '@material-ui/core';
+import { Avatar, makeStyles } from '@material-ui/core';
 
 const useStyles = makeStyles((theme) => ({
 	container: {
 		display: 'flex',
 		flexDirection: 'row',
 		margin: theme.spacing(2, 1, 2, 1),
+
 		borderRadius: '0px 10px 10px 0px',
 		transition: 'all 0.2s ease',
 		cursor: 'pointer',
