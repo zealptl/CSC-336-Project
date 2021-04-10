@@ -1,9 +1,7 @@
 import React from 'react';
 import { Grid, makeStyles } from '@material-ui/core';
 
-import Sidebar from '../../components/Sidebar';
-import TasksContainer from '../../components/TasksContainer';
-import MessagesContainer from '../../components/MessagesContainer';
+import { MessagesContainer, Sidebar, TasksContainer } from '../../components';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -26,13 +24,13 @@ const Dashboard2 = () => {
 	return (
 		<div className={classes.root}>
 			<Grid container spacing={3} className={classes.main}>
-				<Grid item xs={3} className={classes.itemContainer}>
+				<Grid item xs={12} sm={3} className={classes.itemContainer}>
 					<Sidebar />
 				</Grid>
-				<Grid item xs={6} className={classes.itemContainer}>
+				<Grid item xs={12} sm={6} className={classes.itemContainer}>
 					<TasksContainer />
 				</Grid>
-				<Grid item xs={3} className={classes.itemContainer}>
+				<Grid item xs={12} sm={3} className={classes.itemContainer}>
 					<MessagesContainer />
 				</Grid>
 			</Grid>
