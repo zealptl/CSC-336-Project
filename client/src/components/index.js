@@ -5,6 +5,8 @@ import Sidebar from './Sidebar';
 import TasksContainer from './TasksContainer';
 import GroupList from './GroupList';
 import GroupListItem from './GroupListItem';
+import UserDetail from './UserDetail';
+import RightSidebar from './RightSidebar';
 
 export {
 	AppLogo,
@@ -13,5 +15,7 @@ export {
 	MessagesContainer,
 	SearchAndAdd,
 	Sidebar,
+	RightSidebar,
 	TasksContainer,
+	UserDetail,
 };
