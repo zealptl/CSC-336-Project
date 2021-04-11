@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { Grid, makeStyles } from '@material-ui/core';
 
 import { Sidebar, TasksContainer, RightSidebar } from '../../components';
@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard2 = () => {
 	const classes = useStyles();
 
-	const groups = [
+	const [groups, setGroups] = useState([
 		{
 			groupName: 'The Rocinante Crew',
 			groupMembers: [
@@ -131,19 +131,17 @@ const Dashboard2 = () => {
 				'Marco Inaros',
 			],
 		},
-	];
-	console.log('GROUPS:::::', groups[0]);
+	]);
+
 	return (
 		<div>
 			<Grid container spacing={3} className={classes.main}>
 				<Grid item xs={12} sm={3} className={classes.itemContainer}>
 					<Sidebar groups={groups} />
 				</Grid>
-				<Grid item xs={12} sm={6} className={classes.itemContainer}>
+
+				<Grid item xs={12} sm={9} className={classes.itemContainer}>
 					<TasksContainer group={groups[0]} />
-				</Grid>
-				<Grid item xs={12} sm={3} className={classes.itemContainer}>
-					<RightSidebar />
 				</Grid>
 			</Grid>
 		</div>

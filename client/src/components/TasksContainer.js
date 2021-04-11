@@ -1,5 +1,7 @@
 import React from 'react';
-import { Avatar, Typography, makeStyles } from '@material-ui/core';
+import { makeStyles } from '@material-ui/core';
+
+import { GroupDetails } from './index';
 
 const useStyles = makeStyles((theme) => ({
 	container: {
@@ -8,15 +10,16 @@ const useStyles = makeStyles((theme) => ({
 		boxShadow: '4px 4px 8px rgba(1, 25, 47, 0.08)',
 		height: '100%',
 		padding: theme.spacing(2),
+		marginRight: theme.spacing(1),
 	},
 }));
 
-const TasksContainer = () => {
+const TasksContainer = ({ group, tasks }) => {
 	const classes = useStyles();
 
 	return (
 		<div className={classes.container}>
-			<Typography>Tasks</Typography>
+			<GroupDetails group={group} />
 		</div>
 	);
 };

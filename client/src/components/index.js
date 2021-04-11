@@ -1,21 +1,17 @@
 import AppLogo from './AppLogo';
-import MessagesContainer from './MessagesContainer';
 import SearchAndAdd from './SearchAndAdd';
 import Sidebar from './Sidebar';
 import TasksContainer from './TasksContainer';
+import GroupDetails from './GroupDetails';
 import GroupList from './GroupList';
 import GroupListItem from './GroupListItem';
-import UserDetail from './UserDetail';
-import RightSidebar from './RightSidebar';
 
 export {
 	AppLogo,
+	GroupDetails,
 	GroupList,
 	GroupListItem,
-	MessagesContainer,
 	SearchAndAdd,
 	Sidebar,
-	RightSidebar,
 	TasksContainer,
-	UserDetail,
 };
