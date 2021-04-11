@@ -31,14 +31,14 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const Sidebar = () => {
+const Sidebar = ({ groups }) => {
 	const classes = useStyles();
 
 	return (
 		<div className={classes.container}>
 			<AppLogo />
 			<SearchAndAdd />
-			<GroupList />
+			<GroupList groups={groups} />
 
 			<div className={classes.signoutContianer}>
 				<Button variant='outlined' className={classes.signout}>

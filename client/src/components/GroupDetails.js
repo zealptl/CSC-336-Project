@@ -7,43 +7,44 @@ const useStyles = makeStyles((theme) => ({
 		flexDirection: 'row',
 		margin: theme.spacing(2, 1, 2, 1),
 		alignItems: 'center',
-		borderRadius: '0px 10px 10px 0px',
-		transition: 'all 0.2s ease',
-		cursor: 'pointer',
-		'&:hover, &:focus': {
-			background: theme.palette.primary.light,
-
-			'& $bar': {
-				background: theme.palette.primary.main,
-			},
-		},
 	},
 	bar: {
 		height: '50px',
 		width: '3px',
-		background: theme.palette.component.dark,
-		transition: 'all 0.2s ease',
+		background: theme.palette.primary.main,
 	},
 	avatar: {
 		background: theme.palette.primary.main,
 		marginLeft: theme.spacing(1),
 	},
+	groupNameAndMembers: {
+		display: 'flex',
+		flexDirection: 'column',
+	},
 	groupName: {
-		overflow: 'ellipsis',
-		width: '75%',
+		marginLeft: theme.spacing(1),
+	},
+	groupMembers: {
 		marginLeft: theme.spacing(1),
 	},
 }));
 
-const GroupListItem = ({ group }) => {
+const GroupDetails = ({ group }) => {
 	const classes = useStyles();
+
 	return (
 		<div className={classes.container}>
-			<div className={classes.bar}>{''} </div>
+			<div className={classes.bar}></div>
 			<Avatar className={classes.avatar}>{group.groupName[0]}</Avatar>
-			<h4 className={classes.groupName}>{group.groupName}</h4>
+			<div className={classes.groupNameAndMembers}>
+				<h2 className={classes.groupName}>{group.groupName}</h2>
+				<h4 className={classes.groupMembers}>
+					{' '}
+					{group.groupMembers.join(', ')}{' '}
+				</h4>
+			</div>
 		</div>
 	);
 };
 
-export default GroupListItem;
+export default GroupDetails;
