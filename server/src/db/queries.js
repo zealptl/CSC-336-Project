@@ -61,8 +61,14 @@ export default {
     }),
     getTaskFromGroup: values => ({
         name: 'get-task-from-group',
-        text: `SELECT task, status, userEmail, createTime FROM TASK
+        text: `SELECT task, status, userEmail, createTime FROM Task
                WHERE groupID = ? AND active = TRUE;`,
+        values,
+    }),
+    insertTask: values => ({
+        name: 'insert-task',
+        text: `INSERT INTO Task (groupID, task, status, userEmail)
+               VALUES ($1, $2, $3, $4);`,
         values,
     }),
     getReplyFromMessage: values => ({
