@@ -3,21 +3,20 @@ import pg from 'pg'
 const { Client } = pg;
 
 const client = new Client({
-    user: 'NICK',
-    host: 'I NEED',
-    database: 'THE',
-    password: 'DB INFO',
-    port: 3211,
+    user: 'postgres',
+    host: 'localhost',
+    database: 'jira',
+    password: null,
+    port: 5432,
 });
 
-client.connect();
-
 const dbq = {
-    query: function(text, values, cb) {
-        client.query(text, values, function(err, result) {
-            done();
-            cb(err, result);
-        })
+    query: async function(text, values) {
+        client.connect();
+        return client.query(text, values)
+            .then(res => res)
+            .catch(e => {throw e})
+            .finally(() => client.end());
     }
 }
 
