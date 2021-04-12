@@ -1,22 +1,25 @@
 import pg from 'pg'
 
-const { Client } = pg;
+const { Pool } = pg;
 
-const client = new Client({
+const pool = new Pool({
     user: 'postgres',
     host: 'localhost',
-    database: 'jira',
+    database: 'sira',
     password: null,
     port: 5432,
 });
 
 const dbq = {
-    query: async function(text, values) {
-        client.connect();
-        return client.query(text, values)
-            .then(res => res)
-            .catch(e => {throw e})
-            .finally(() => client.end());
+    query: async function(query) {
+        const client = await pool.connect();
+        try {
+            return await client.query(query);
+        } catch (err) {
+            throw err;
+        } finally {
+            client.release();
+        }
     }
 }
 
