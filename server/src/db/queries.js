@@ -38,7 +38,7 @@ export default {
     getGroupsForUser: values => ({
         name: 'get-groups-for-user',
         text: `SELECT groupID, userEmail FROM GroupUsers
-               WHERE userEmail = ?, active = TRUE;`,
+               WHERE userEmail = $1, active = TRUE;`,
         values,
     }),
     insertGroupUser: values => ({
@@ -50,31 +50,43 @@ export default {
     getMessageFromUser: values => ({
         name: 'get-message-from-user',
         text: `SELECT groupID, body, timeSent FROM Message
-               WHERE userEmail = ?;`,
+               WHERE userEmail = $1;`,
         values,
     }),
     getMessageFromGroup: values => ({
         name: 'get-message-from-group',
         text: `SELECT userEmail, body, timeSent FROM Message
-               WHERE groupID = ?;`,
+               WHERE groupID = $1;`,
         values,
     }),
-    getTaskFromGroup: values => ({
-        name: 'get-task-from-group',
-        text: `SELECT task, status, userEmail, createTime FROM Task
-               WHERE groupID = ? AND active = TRUE;`,
+    getTasksFromGroup: values => ({
+        name: 'get-tasks-from-group',
+        text: `SELECT * FROM Task
+               WHERE groupID = $1 AND active = TRUE;`,
+        values,
+    }),
+    getTaskFromID: values => ({
+        name: 'get-task-from-id',
+        text: `SELECT * FROM Task
+               WHERE taskID = $1 AND active = TRUE;`,
         values,
     }),
     insertTask: values => ({
         name: 'insert-task',
         text: `INSERT INTO Task (groupID, task, status, userEmail)
-               VALUES ($1, $2, $3, $4);`,
+               VALUES ($1, $2, $3, $4) RETURNING taskid;`,
+        values,
+    }),
+    updateTask: values => ({
+        name: 'update-task',
+        text: `UPDATE Task SET task = $2, status = $3
+               WHERE taskID = $1;`,
         values,
     }),
     getReplyFromMessage: values => ({
         name: 'get-reply-from-message',
         text: `SELECT userEmail, body, timeSent FROM Reply
-               WHERE messageID = ?;`,
+               WHERE messageID = $1;`,
         values,
     }),
 }
