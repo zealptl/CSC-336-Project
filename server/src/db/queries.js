@@ -19,6 +19,16 @@ export default {
         text: `SELECT * FROM Groups;`,
         values,
     }),
+    getGroupsByName: values => ({
+        name: 'get-groups-by-name',
+        text: `SELECT * FROM Groups WHERE groupName = $1;`,
+        values,
+    }),
+    getGroupsByID: values => ({
+        name: 'get-groups-by-ID',
+        text: `SELECT * FROM Groups WHERE groupID = $1;`,
+        values,
+    }),
     insertGroups: values => ({
         name: 'insert-groups',
         text: `INSERT INTO Groups (groupName)

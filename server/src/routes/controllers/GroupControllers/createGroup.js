@@ -18,3 +18,5 @@ async function createGroup(req, res) {
     
     res.json({createdGroupId});
 }
+
+export default createGroup;
