@@ -1,11 +1,9 @@
-CREATE DATABASE jira
+DROP DATABASE IF EXISTS sira;
+
+CREATE DATABASE sira
     WITH
     OWNER = postgres
-    ENCODING = 'UTF8'
-    LC_COLLATE = 'English_United States.1252'
-    LC_CTYPE = 'English_United States.1252'
-    TABLESPACE = pg_default
-    CONNECTION LIMIT = -1;
+    ENCODING = 'UTF8';
 
 -- Comment out if using your own data
 DROP TABLE IF EXISTS Users CASCADE;
@@ -89,11 +87,11 @@ INSERT INTO GroupUsers (groupID, userEmail) VALUES
     (1, 'nately@gmail.com');
 
 INSERT INTO Task (groupID, task, status, userEmail) VALUES
-    (1, 'Add access to all tables on admin page', 'Doing', 'yossarian@gmail.com'),
+    (1, 'Add access to all tables on admin page', 'In Progress', 'yossarian@gmail.com'),
     (1, 'Reformat menu', 'To Do', 'daneeka@gmail.com'),
     (1, 'Job application forms', 'Done', 'daneeka@gmail.com'),
     (1, 'Write views', 'Done', 'cathcart@gmail.com'),
-    (1, 'Create dummy data', 'Doing', 'nately@gmail.com'),
+    (1, 'Create dummy data', 'In Progress', 'nately@gmail.com'),
     (1, 'Write models', 'Done', 'minderbinder@gmail.com'),
     (3, 'Write first fragment shader', 'Doing', 'yossarian@gmail.com'),
     (3, 'Write second fragment shader', 'To Do', 'yossarian@gmail.com'),
