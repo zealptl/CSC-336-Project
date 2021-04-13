@@ -12,7 +12,7 @@ async function updateTask(req, res) {
 
     const updatedTask = await db.query(queries.updateTask([taskID, task, status]));
 
-    res.json({successful: True});
+    res.json({successful: true});
 }
 
 export default updateTask;

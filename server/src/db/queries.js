@@ -4,14 +4,25 @@
 // These values MUST be arrays as a list of values
 export default {
     getUsers: values => ({
-        name: 'get-user',
-        text: `SELECT * FROM Users;`,
+        name: 'get-users',
+        text: `SELECT * FROM Users WHERE active = TRUE;`,
         values,
     }),
-    insertUsers: values => ({
+    getUser: values => ({
+        name: 'get-user',
+        text: `SELECT * FROM Users WHERE email = $1 AND active = TRUE;`,
+        values,
+    }),
+    insertUser: values => ({
         name: 'insert-user',
-        text: `INSERT INTO Users (email, firstName, lastName, password, active)
-               VALUES ($1, $2, $3, $4, $5);`,
+        text: `INSERT INTO Users (email, firstName, lastName, password)
+               VALUES ($1, $2, $3, $4);`,
+        values,
+    }),
+    updatePassword: values => ({
+        name: 'update-password',
+        text: `UPDATE Users SET password = $2
+               WHERE email = $1;`,
         values,
     }),
     getGroups: values => ({
