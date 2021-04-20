@@ -102,8 +102,9 @@ INSERT INTO Task (groupID, task, status, userEmail) VALUES
 
 INSERT INTO Message (userEmail, groupID, body) VALUES
     ('yossarian@gmail.com', 1, 'That''s some catch, that Catch-22.'),
+    ('daneeka@gmail.com', 1, 'It''s the best there is.'),
     ('cathcart@gmail.com', 2, 'Haven''t you got anything humorous that stays away from waters and valleys and God?'),
     ('nately@gmail.com', 3, 'Surely there can''t be so many countries worth dying for.');
 
-INSERT INTO Reply (messageID, userEmail, body) VALUES
-    (1, 'daneeka@gmail.com', 'It''s the best there is.');
+INSERT INTO Reply (actual, of) VALUES
+    (1, 2);
