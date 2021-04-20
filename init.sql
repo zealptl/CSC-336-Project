@@ -5,13 +5,19 @@ CREATE DATABASE sira
     OWNER = postgres
     ENCODING = 'UTF8';
 
+-- Connect to the sira database
+\c sira;
+
 -- Comment out if using your own data
 DROP TABLE IF EXISTS Users CASCADE;
 DROP TABLE IF EXISTS Groups CASCADE;
 DROP TABLE IF EXISTS GroupUsers;
 DROP TABLE IF EXISTS Task;
 DROP TABLE IF EXISTS Message CASCADE;
-DROP TABLE IF EXISTS Reply;
+DROP TABLE IF EXISTS Reply CASCADE;
+
+DROP TYPE IF EXISTS STATUS;
+CREATE TYPE STATUS as ENUM ('To Do', 'In Progress', 'Done');
 
 CREATE TABLE Users (
     email VARCHAR(255) PRIMARY KEY,
@@ -38,7 +44,7 @@ CREATE TABLE Task (
     taskID SERIAL PRIMARY KEY,
     groupID SERIAL REFERENCES Groups (groupID),
     task VARCHAR(255) NOT NULL,
-    status VARCHAR(255) NOT NULL,
+    currentStatus STATUS NOT NULL,
     userEmail VARCHAR(255) REFERENCES Users (email),
     createTime TIMESTAMP DEFAULT CURRENT_TIMESTAMP(0),
     active BOOLEAN DEFAULT TRUE
@@ -83,14 +89,14 @@ INSERT INTO GroupUsers (groupID, userEmail) VALUES
     (3, 'minderbinder@gmail.com'),
     (1, 'nately@gmail.com');
 
-INSERT INTO Task (groupID, task, status, userEmail) VALUES
+INSERT INTO Task (groupID, task, currentStatus, userEmail) VALUES
     (1, 'Add access to all tables on admin page', 'In Progress', 'yossarian@gmail.com'),
     (1, 'Reformat menu', 'To Do', 'daneeka@gmail.com'),
     (1, 'Job application forms', 'Done', 'daneeka@gmail.com'),
     (1, 'Write views', 'Done', 'cathcart@gmail.com'),
     (1, 'Create dummy data', 'In Progress', 'nately@gmail.com'),
     (1, 'Write models', 'Done', 'minderbinder@gmail.com'),
-    (3, 'Write first fragment shader', 'Doing', 'yossarian@gmail.com'),
+    (3, 'Write first fragment shader', 'In Progress', 'yossarian@gmail.com'),
     (3, 'Write second fragment shader', 'To Do', 'yossarian@gmail.com'),
     (3, 'Write first vertex shader', 'To Do', 'minderbinder@gmail.com'),
     (3, 'Write second vertex shader', 'To Do', 'minderbinder@gmail.com'),
