@@ -6,7 +6,7 @@ import queries from '../../../db/queries.js';
 // url params: :email:Users.email
 // body: {password:string}
 // return [JSON]: {successful} - successful or not
-async function updatePassword(req, res) {
+export async function updatePassword(req, res) {
     const userEmail = req.params.email;
     const password = req.body.password;
 
@@ -15,4 +15,4 @@ async function updatePassword(req, res) {
     res.json({successful: true});
 }
 
-export default updateTask;
+export default updatePassword;

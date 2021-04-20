@@ -6,7 +6,7 @@ import queries from '../../../db/queries.js';
 // url params: :taskID:Task.taskID
 // body: {status:string, task:string}
 // return [JSON]: {successful} - successful or not
-async function updateTask(req, res) {
+export async function updateTask(req, res) {
     const taskID = req.params.taskID;
     const { task, status } = req.body;
 

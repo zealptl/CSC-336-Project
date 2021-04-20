@@ -6,7 +6,7 @@ import queries from '../../../db/queries.js';
 // url params: :groupID:Groups.groupID/:userEmail:Users.email
 // body: {status:string}
 // return [JSON]: {successful} - successful or not
-async function updateGroupUser(req, res) {
+export async function updateGroupUser(req, res) {
     const { groupID, userEmail } = req.params;
     const { status } = req.body;
 

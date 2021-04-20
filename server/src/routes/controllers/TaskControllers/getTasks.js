@@ -5,7 +5,7 @@ import queries from '../../../db/queries.js';
 // Format:
 // url params: :groupID:Groups.groupID
 // return [JSON]: task:[{taskID, groupID, task, status, userEmail, createTime, active}] - list of tasks within the group
-async function getTasksFromGroup(req, res) {
+export async function getTasksFromGroup(req, res) {
     const taskID = req.params.taskID;
 
     const taskQuery = await db.query(queries.getTasksFromGroup([groupID]));
@@ -18,7 +18,7 @@ async function getTasksFromGroup(req, res) {
 // Format:
 // url params: :taskID:Task.taskID
 // return [JSON]: task:{taskID, groupID, task, status, userEmail, createTime, active} - task from taskID
-async function getTaskFromId(req, res) {
+export async function getTaskFromId(req, res) {
     const taskID = req.params.taskID;
 
     const taskQuery = await db.query(queries.getTaskFromID([taskID]));

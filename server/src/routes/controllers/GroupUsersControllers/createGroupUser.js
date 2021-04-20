@@ -5,7 +5,7 @@ import queries from '../../../db/queries.js';
 // Format:
 // body: {groupID:Groups.groupID, userEmail:Users.userEmail}
 // return [JSON]: {successful} - successful or not
-async function createGroupUser(req, res) {
+export async function createGroupUser(req, res) {
     const { groupID, userEmail } = req.body;
 
     const createdGroupUser = await db.query(queries.insertGroupUser([groupID, userEmail]));

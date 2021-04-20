@@ -5,7 +5,7 @@ import queries from '../../../db/queries.js';
 // Format:
 // url params: :email - email of user to get
 // return [JSON]: user:{email, firstName, lastName, password} -
-async function getUser(req, res) {
+export async function getUser(req, res) {
     const userEmail = req.params.email;
     
     const userQuery = await db.query(queries.getUser([userEmail]));

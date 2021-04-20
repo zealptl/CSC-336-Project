@@ -5,7 +5,7 @@ import queries from '../../../db/queries.js';
 // Format:
 // url params: :groupName:string
 // return [JSON]: groups:[{groupID, groupName, active}] - the groupID and status of all matching groups
-async function getGroupsByName(req, res) {
+export async function getGroupsByName(req, res) {
     const groupName = req.params.groupName;
     
     const groupQuery = await db.query(queries.getGroupsByName([groupName]));
@@ -18,7 +18,7 @@ async function getGroupsByName(req, res) {
 // Format:
 // url params: :groupID:string
 // return [JSON]: group:{groupName, active} - the groupName and status of the group from groupID
-async function getGroupById(req, res) {
+export async function getGroupById(req, res) {
     const groupID = req.params.groupID;
     
     const groupQuery = await db.query(queries.getGroupsByID([groupID]));

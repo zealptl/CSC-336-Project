@@ -5,7 +5,7 @@ import queries from '../../../db/queries.js';
 // Format:
 // body: {groupName:string, users:[user:Users.email]}
 // return [JSON]: createdGroupId - the id of the newly created group
-async function createGroup(req, res) {
+export async function createGroup(req, res) {
     const group = req.body.groupName;
     const users = req.body.users;
     
