@@ -53,11 +53,8 @@ CREATE TABLE Message (
 );
 
 CREATE TABLE Reply (
-    replyID SERIAL PRIMARY KEY,
-    messageID SERIAL REFERENCES Message (messageID),
-    userEmail VARCHAR(255) REFERENCES Users (email),
-    body VARCHAR(5000) NOT NULL,
-    timeSent TIMESTAMP DEFAULT CURRENT_TIMESTAMP(0)
+    actual SERIAL REFERENCES Message (messageID),
+    of SERIAL REFERENCES Message (messageID)
 );
 
 INSERT INTO Users VALUES
