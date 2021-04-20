@@ -58,6 +58,12 @@ export default {
                VALUES ($1, $2);`,
         values,
     }),
+    updateGroupUser: values => ({
+        name: 'update-group-user',
+        text: `UPDATE GroupUsers SET active = $3
+               WHERE groupID = $1 AND userEmail = $2;`,
+        values,
+    }),
     getMessageFromUser: values => ({
         name: 'get-message-from-user',
         text: `SELECT groupID, body, timeSent FROM Message
