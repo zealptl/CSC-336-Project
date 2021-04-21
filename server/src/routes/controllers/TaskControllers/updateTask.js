@@ -4,7 +4,8 @@ import queries from '../../../db/queries.js';
 // PATCH request
 // Format:
 // url params: :taskID:Task.taskID
-// body: {status:string, task:string}
+// body: {status:Status, task:string}
+// Status: 'To Do', 'In Progress', 'Done'
 // return [JSON]: {successful} - successful or not
 export async function updateTask(req, res) {
     const taskID = req.params.taskID;

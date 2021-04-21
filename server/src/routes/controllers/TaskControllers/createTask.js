@@ -3,7 +3,8 @@ import queries from '../../../db/queries.js';
 
 // POST request
 // Format:
-// body: {groupID:Groups.groupID, status:string, userEmail:Users.userEmail, task:string}
+// body: {groupID:Groups.groupID, status:Status, userEmail:Users.userEmail, task:string}
+// Status: 'To Do', 'In Progress', 'Done'
 // return [JSON]: {createdTaskId} - the id of the newly created task
 export async function createTask(req, res) {
     const { groupID, task, status, userEmail } = req.body;

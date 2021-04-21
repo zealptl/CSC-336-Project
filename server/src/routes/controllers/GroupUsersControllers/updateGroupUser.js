@@ -4,7 +4,7 @@ import queries from '../../../db/queries.js';
 // PATCH request
 // Format:
 // url params: :groupID:Groups.groupID/:userEmail:Users.email
-// body: {status:string}
+// body: {status:bool}
 // return [JSON]: {successful} - successful or not
 export async function updateGroupUser(req, res) {
     const { groupID, userEmail } = req.params;
