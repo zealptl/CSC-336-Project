@@ -59,8 +59,8 @@ CREATE TABLE Message (
 );
 
 CREATE TABLE Reply (
-    actual SERIAL REFERENCES Message (messageID),
-    of SERIAL REFERENCES Message (messageID)
+    originalMessage SERIAL REFERENCES Message (messageID),
+    replyMessage SERIAL REFERENCES Message (messageID)
 );
 
 INSERT INTO Users VALUES
@@ -112,5 +112,5 @@ INSERT INTO Message (userEmail, groupID, body) VALUES
     ('cathcart@gmail.com', 2, 'Haven''t you got anything humorous that stays away from waters and valleys and God?'),
     ('nately@gmail.com', 3, 'Surely there can''t be so many countries worth dying for.');
 
-INSERT INTO Reply (actual, of) VALUES
+INSERT INTO Reply (originalMessage, replyMessage) VALUES
     (1, 2);
