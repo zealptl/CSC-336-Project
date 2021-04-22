@@ -19,23 +19,21 @@ const groupsState = (props) => {
 	// get groups for user
 	const getGroupsForUser = async (email) => {
 		try {
-			const groupsIds = await axios.get(
+			const groups = await axios.get(
 				`http://localhost:8080/api/groupUser/getGroupsForUser/${email}`
 			);
 
-			let groups = groupsIds.data.groups.map((groupId) =>
-				axios.get(
-					`http://localhost:8080/api/group/getGroupById/${groupId.groupid}`
-				)
-			);
+			for (const group of groups.data.groups) {
+				const groupUsers = await axios.get(
+					`http://localhost:8080/api/groupUser/getUsersForGroup/${group.groupid}`
+				);
 
-			groups = await Promise.all(groups);
-
-			const groupsForUser = groups.map((group) => group.data.group[0]);
+				group['users'] = groupUsers.data.users;
+			}
 
 			dispatch({
 				type: GET_GROUPS_FOR_USER,
-				payload: groupsForUser,
+				payload: groups.data.groups,
 			});
 		} catch (error) {
 			console.error(error);
