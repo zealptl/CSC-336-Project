@@ -40,8 +40,8 @@ const GroupListItem = ({ group }) => {
 	return (
 		<div className={classes.container}>
 			<div className={classes.bar}>{''} </div>
-			<Avatar className={classes.avatar}>{group.groupName[0]}</Avatar>
-			<h4 className={classes.groupName}>{group.groupName}</h4>
+			<Avatar className={classes.avatar}>{group.groupname[0]}</Avatar>
+			<h4 className={classes.groupName}>{group.groupname}</h4>
 		</div>
 	);
 };
