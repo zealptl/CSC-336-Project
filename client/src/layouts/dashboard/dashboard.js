@@ -1,7 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useContext, useRef } from 'react';
 import { Grid, makeStyles } from '@material-ui/core';
 import { Widget as ChatWidget } from 'react-chat-widget';
 import 'react-chat-widget/lib/styles.css';
+
+import GroupsContext from '../../context/groups/groupsContext';
 
 import { Sidebar, TasksSection } from '../../components';
 
@@ -21,119 +23,16 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = () => {
 	const classes = useStyles();
 
-	const [groups, setGroups] = useState([
-		{
-			groupName: 'The Rocinante Crew',
-			groupMembers: [
-				'James Holden',
-				'Amos Burton',
-				'Naomi Nagata',
-				'Alex Kamal',
-			],
-		},
-		{
-			groupName: 'United Nations Navy',
-			groupMembers: [
-				'Chrisjen Avasarala',
-				'Agusto Nguyen',
-				'Michael Souther',
-				'Felix Delgado',
-			],
-		},
-		{
-			groupName: 'Martian Congressional Republic Navy',
-			groupMembers: [
-				'Bobby Draper',
-				'Emil Sauveterre',
-				'Theresa Yao',
-				'Alex Kamal',
-			],
-		},
-		{
-			groupName: 'Outer Planets Alliance',
-			groupMembers: [
-				'Fred Johnson',
-				'Anderson Dawes',
-				'Naomi Nagata',
-				'Klaes Ashford',
-				'Marco Inaros',
-			],
-		},
-		{
-			groupName: 'The Rocinante Crew',
-			groupMembers: [
-				'James Holden',
-				'Amos Burton',
-				'Naomi Nagata',
-				'Alex Kamal',
-			],
-		},
-		{
-			groupName: 'United Nations Navy',
-			groupMembers: [
-				'Chrisjen Avasarala',
-				'Agusto Nguyen',
-				'Michael Souther',
-				'Felix Delgado',
-			],
-		},
-		{
-			groupName: 'Martian Congressional Republic Navy',
-			groupMembers: [
-				'Bobby Draper',
-				'Emil Sauveterre',
-				'Theresa Yao',
-				'Alex Kamal',
-			],
-		},
-		{
-			groupName: 'Outer Planets Alliance',
-			groupMembers: [
-				'Fred Johnson',
-				'Anderson Dawes',
-				'Naomi Nagata',
-				'Klaes Ashford',
-				'Marco Inaros',
-			],
-		},
-		{
-			groupName: 'The Rocinante Crew',
-			groupMembers: [
-				'James Holden',
-				'Amos Burton',
-				'Naomi Nagata',
-				'Alex Kamal',
-			],
-		},
-		{
-			groupName: 'United Nations Navy',
-			groupMembers: [
-				'Chrisjen Avasarala',
-				'Agusto Nguyen',
-				'Michael Souther',
-				'Felix Delgado',
-			],
-		},
-		{
-			groupName: 'Martian Congressional Republic Navy',
-			groupMembers: [
-				'Bobby Draper',
-				'Emil Sauveterre',
-				'Theresa Yao',
-				'Alex Kamal',
-			],
-		},
-		{
-			groupName: 'Outer Planets Alliance',
-			groupMembers: [
-				'Fred Johnson',
-				'Anderson Dawes',
-				'Naomi Nagata',
-				'Klaes Ashford',
-				'Marco Inaros',
-			],
-		},
-	]);
+	const groupsContext = useContext(GroupsContext);
+	const { groups, getGroupsForUser } = groupsContext;
+	const user = { email: 'cathcart@gmail.com' };
+
+	useEffect(() => {
+		if (user && groups.length === 0) {
+			getGroupsForUser(user.email);
+		}
+		// eslint-disable-next-line
+	}, [user, groups]);
 
 	return (
 		<div>
@@ -143,7 +42,7 @@ const Dashboard = () => {
 				</Grid>
 
 				<Grid item xs={12} sm={9} className={classes.itemContainer}>
-					<TasksSection group={groups[0]} />
+					{/* <TasksSection group={groups[0]} /> */}
 				</Grid>
 			</Grid>
 
