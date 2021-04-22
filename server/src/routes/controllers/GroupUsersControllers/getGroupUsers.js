@@ -4,13 +4,13 @@ import queries from '../../../db/queries.js';
 // GET request
 // Format:
 // url params: :groupID:Groups.groupID
-// return [JSON]: users:[{userEmail}] - list of users associated to a userEmail
+// return [JSON]: users:[{userEmail, firstName, lastName}] - list of users associated to a userEmail
 export async function getUsersForGroup(req, res) {
     const groupID = req.params.groupID;
-    
+
     const userEmails = await db.query(queries.getUsersForGroup([groupID]));
     const { rows: users } = userEmails;
-    
+
     res.json({users});
 }
 
@@ -20,12 +20,12 @@ export async function getUsersForGroup(req, res) {
 // return [JSON]: groups:[{groupID}] - list of groupID's associated to a userEmail
 export async function getGroupsForUser(req, res) {
     const userEmail = req.params.userEmail;
-    
+
     const groupQueries = await db.query(queries.getGroupsForUser([userEmail]));
     const { rows: groups } = groupQueries;
-    
+
     res.json({groups});
 }
 
-export default { getUsersForGroup, 
+export default { getUsersForGroup,
                  getGroupsForUser,};
