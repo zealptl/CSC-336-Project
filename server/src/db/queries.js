@@ -48,14 +48,16 @@ export default {
     }),
     getGroupsForUser: values => ({
         name: 'get-groups-for-user',
-        text: `SELECT groupID FROM GroupUsers
-               WHERE userEmail = $1 AND active = TRUE;`,
+        text: `SELECT GroupUsers.groupID, groupName FROM GroupUsers
+               JOIN Groups ON Groups.groupID = GroupUsers.groupID
+               WHERE userEmail = $1 AND GroupUsers.active = TRUE;`,
         values,
     }),
     getUsersForGroup: values => ({
         name: 'get-users-for-group',
-        text: `SELECT userEmail FROM GroupUsers
-               WHERE groupID = $1 AND active = TRUE;`,
+        text: `SELECT userEmail, firstName, lastName FROM GroupUsers
+               JOIN Users ON Users.email = GroupUsers.userEmail
+               WHERE groupID = $1 AND GroupUsers.active = TRUE;`,
         values,
     }),
     insertGroupUser: values => ({
