@@ -112,7 +112,7 @@ export default {
     }),
     updateTask: values => ({
         name: 'update-task',
-        text: `UPDATE Task SET task = $2, status = $3
+        text: `UPDATE Task SET task = $2, currentStatus = $3
                WHERE taskID = $1;`,
         values,
     }),
