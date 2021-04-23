@@ -56,7 +56,7 @@ const TasksSection = () => {
 				</Button>
 			</div>
 
-			<TasksColumnsContainer />
+			<TasksColumnsContainer group={current} />
 		</div>
 	);
 };

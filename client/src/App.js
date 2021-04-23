@@ -9,24 +9,28 @@ import { CssBaseline, ThemeProvider } from '@material-ui/core';
 import theme from './theme';
 
 import GroupsState from './context/groups/groupsState';
+import TasksState from './context/tasks/taskState';
 
 import { SignIn, SignUp } from './layouts/auth';
 import { Dashboard } from './layouts/dashboard';
+import { Task } from './components';
 
 const App = () => {
 	return (
 		<GroupsState>
-			<ThemeProvider theme={theme}>
-				<CssBaseline />
-				<Router>
-					<div className='App'>
-						<Switch>
-							<Route path='/auth' component={AuthRouting} />
-							<Route path='/dashboard' component={DashboardRouting} />
-						</Switch>
-					</div>
-				</Router>
-			</ThemeProvider>
+			<TasksState>
+				<ThemeProvider theme={theme}>
+					<CssBaseline />
+					<Router>
+						<div className='App'>
+							<Switch>
+								<Route path='/auth' component={AuthRouting} />
+								<Route path='/dashboard' component={DashboardRouting} />
+							</Switch>
+						</div>
+					</Router>
+				</ThemeProvider>
+			</TasksState>
 		</GroupsState>
 	);
 };
