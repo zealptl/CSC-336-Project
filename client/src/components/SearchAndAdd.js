@@ -1,5 +1,16 @@
-import React, { useContext, useRef } from 'react';
-import { Button, makeStyles } from '@material-ui/core';
+import React, { useContext, useRef, useState } from 'react';
+import {
+	Button,
+	TextField,
+	Dialog,
+	DialogActions,
+	DialogTitle,
+	List,
+	ListItem,
+	ListItemText,
+	makeStyles,
+	DialogContent,
+} from '@material-ui/core';
 
 import GroupsContext from '../context/groups/groupsContext';
 
@@ -31,6 +42,11 @@ const useStyles = makeStyles((theme) => ({
 			color: '#FFF',
 		},
 	},
+	listItem: {
+		background: theme.palette.component.main,
+		margin: theme.spacing(1),
+		borderRadius: '4px',
+	},
 }));
 
 const SearchAndAdd = () => {
@@ -41,6 +57,14 @@ const SearchAndAdd = () => {
 
 	const text = useRef();
 
+	const [open, setOpen] = useState(false);
+	const [newGroupData, setNewGroupData] = useState({
+		groupName: '',
+		userEmail: '',
+	});
+
+	const [userEmails, setUserEmails] = useState([]);
+
 	const onChange = (e) => {
 		console.log('in onchage');
 		if (text.current.value !== '') {
@@ -49,6 +73,28 @@ const SearchAndAdd = () => {
 		} else {
 			clearSearch();
 		}
+	};
+
+	const onChangeGroupData = (e) => {
+		console.log(e.target.value);
+		setNewGroupData({ ...newGroupData, [e.target.name]: e.target.value });
+	};
+
+	const onAddUserButtonClick = (e) => {
+		e.preventDefault();
+		if (newGroupData.userEmail) {
+			setUserEmails([...userEmails, newGroupData.userEmail]);
+		}
+		setNewGroupData({ ...newGroupData, userEmail: '' });
+	};
+
+	const handleClickOpen = () => {
+		setOpen(true);
+	};
+
+	const handleClose = () => {
+		setOpen(false);
+		console.log(userEmails);
 	};
 
 	return (
@@ -64,14 +110,69 @@ const SearchAndAdd = () => {
 				placeholder='Search'
 				className={classes.textField}
 			/>
+
+			{/* Create New Group Component */}
 			<Button
 				variant='outline'
 				size='large'
 				color='primary'
+				aria-label='add'
 				className={classes.button}
+				onClick={handleClickOpen}
 			>
 				+ New
 			</Button>
+			<Dialog
+				open={open}
+				onClose={handleClose}
+				aria-labelledby='form-dialog-title'
+			>
+				<DialogTitle id='form-dialog-title'>Create New Group</DialogTitle>
+				<DialogContent>
+					<TextField
+						variant='outlined'
+						margin='normal'
+						required
+						fullWidth
+						id='groupName'
+						label='Group Name'
+						name='groupName'
+						onChange={onChangeGroupData}
+					/>
+
+					<TextField
+						variant='outlined'
+						margin='normal'
+						id='userEmail'
+						name='userEmail'
+						label='User Email'
+						placeholder='johndoe@gmail.com'
+						value={newGroupData.userEmail}
+						fullWidth
+						onChange={onChangeGroupData}
+					/>
+					<Button color='primary' onClick={onAddUserButtonClick}>
+						Add Member
+					</Button>
+
+					<List>
+						{userEmails.map((u) => (
+							<ListItem className={classes.listItem}>
+								<ListItemText>{u}</ListItemText>
+							</ListItem>
+						))}
+					</List>
+
+					<DialogActions>
+						<Button onClick={handleClose} color='primary'>
+							Cancel
+						</Button>
+						<Button onClick={handleClose} color='primary'>
+							Create
+						</Button>
+					</DialogActions>
+				</DialogContent>
+			</Dialog>
 		</div>
 	);
 };
