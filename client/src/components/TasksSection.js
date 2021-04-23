@@ -1,5 +1,17 @@
-import React, { useContext } from 'react';
-import { Button, makeStyles } from '@material-ui/core';
+import React, { useContext, useState } from 'react';
+import {
+	Button,
+	makeStyles,
+	Dialog,
+	DialogActions,
+	DialogTitle,
+	DialogContent,
+	TextField,
+	Select,
+	FormControl,
+	InputLabel,
+	Input,
+} from '@material-ui/core';
 
 import { GroupDetails, TasksColumnsContainer } from './index';
 
@@ -38,15 +50,49 @@ const TasksSection = () => {
 
 	const groupsContext = useContext(GroupsContext);
 	const { current } = groupsContext;
+	const user = { email: 'yossarian@gmail.com' };
+
+	const [open, setOpen] = useState(false);
+	const [task, setTask] = useState({
+		task: '',
+		status: '',
+	});
+
+	const onChange = (e) =>
+		setTask({
+			...task,
+			[e.target.name]: e.target.value,
+		});
+
+	const handleClickOpen = () => {
+		setOpen(true);
+	};
+
+	const handleClose = () => {
+		setOpen(false);
+	};
+
+	const create = () => {
+		setOpen(false);
+		console.log({ groupID: current.groupid, userEmail: user.email, ...task });
+		// createGroup({ groupName: newGroupData.groupName, users: userEmails });
+	};
 
 	return (
 		<div className={classes.container}>
 			<GroupDetails group={current} />
 
 			<div className={classes.buttonContainer}>
-				<Button variant='contained' color='primary' className={classes.button}>
+				<Button
+					variant='contained'
+					color='primary'
+					aria-label='add'
+					onClick={handleClickOpen}
+					className={classes.button}
+				>
 					+ New Task
 				</Button>
+
 				<Button
 					variant='outlined'
 					color='primary'
@@ -55,6 +101,50 @@ const TasksSection = () => {
 					+ Add Member
 				</Button>
 			</div>
+
+			<Dialog open={open} aria-labelledby='form-dialog-title'>
+				<DialogTitle id='form-dialog-title'>Create New Task</DialogTitle>
+				<DialogContent>
+					<TextField
+						variant='outlined'
+						margin='normal'
+						required
+						fullWidth
+						id='task'
+						label='Task'
+						name='task'
+						onChange={onChange}
+					/>
+
+					<FormControl variant='outlined' fullWidth margin='normal'>
+						<InputLabel>Current Status</InputLabel>
+						<Select
+							native
+							required
+							label='Current Status'
+							onChange={onChange}
+							inputProps={{
+								name: 'status',
+								id: 'status',
+							}}
+						>
+							<option aria-label='None' value='' />
+							<option value='To Do'>To Do</option>
+							<option value='In Progress'>In Progress</option>
+							<option value='Done'>Done</option>
+						</Select>
+					</FormControl>
+
+					<DialogActions>
+						<Button onClick={handleClose} color='primary'>
+							Cancel
+						</Button>
+						<Button onClick={create} color='primary'>
+							Create
+						</Button>
+					</DialogActions>
+				</DialogContent>
+			</Dialog>
 
 			<TasksColumnsContainer group={current} />
 		</div>

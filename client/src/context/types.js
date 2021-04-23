@@ -6,3 +6,4 @@ export const CLEAR_CURRENT = 'CLEAR_CURRENT';
 export const CREATE_GROUP = 'CREATE_GROUP';
 
 export const GET_TASKS = 'GET_TASKS';
+export const CREATE_TASKS = 'CREATE_TASKS';

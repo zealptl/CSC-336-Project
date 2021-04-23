@@ -37,8 +37,6 @@ const tasksState = (props) => {
 			}
 		});
 
-		console.log(sortedTasks);
-
 		dispatch({ type: GET_TASKS, payload: sortedTasks });
 	};
 
