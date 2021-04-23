@@ -8,7 +8,6 @@ import {
 	SEARCH_GROUPS,
 	CLEAR_SEARCH,
 	SET_CURRENT_GROUP,
-	CLEAR_CURRENT,
 } from '../types';
 
 const groupsState = (props) => {
@@ -55,10 +54,6 @@ const groupsState = (props) => {
 
 	const setCurrent = (group) => {
 		dispatch({ type: SET_CURRENT_GROUP, payload: group });
-	};
-
-	const clearCurrent = () => {
-		dispatch({ action: CLEAR_CURRENT });
 	};
 
 	return (

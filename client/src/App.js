@@ -13,7 +13,6 @@ import TasksState from './context/tasks/taskState';
 
 import { SignIn, SignUp } from './layouts/auth';
 import { Dashboard } from './layouts/dashboard';
-import { Task } from './components';
 
 const App = () => {
 	return (

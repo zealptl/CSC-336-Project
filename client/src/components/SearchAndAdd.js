@@ -1,5 +1,5 @@
 import React, { useContext, useRef } from 'react';
-import { TextField, Button, makeStyles } from '@material-ui/core';
+import { Button, makeStyles } from '@material-ui/core';
 
 import GroupsContext from '../context/groups/groupsContext';
 
