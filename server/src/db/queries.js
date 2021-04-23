@@ -106,13 +106,13 @@ export default {
     }),
     insertTask: values => ({
         name: 'insert-task',
-        text: `INSERT INTO Task (groupID, task, status, userEmail)
+        text: `INSERT INTO Task (groupID, task, currentStatus, userEmail)
                VALUES ($1, $2, $3, $4) RETURNING taskid;`,
         values,
     }),
     updateTask: values => ({
         name: 'update-task',
-        text: `UPDATE Task SET task = $2, status = $3
+        text: `UPDATE Task SET task = $2, currentStatus = $3
                WHERE taskID = $1;`,
         values,
     }),
