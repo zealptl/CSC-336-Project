@@ -3,5 +3,6 @@ export const SEARCH_GROUPS = 'SEARCH_GROUPS';
 export const CLEAR_SEARCH = 'CLEAR_SEARCH';
 export const SET_CURRENT_GROUP = 'SET_CURRENT_GROUP';
 export const CLEAR_CURRENT = 'CLEAR_CURRENT';
+export const CREATE_GROUP = 'CREATE_GROUP';
 
 export const GET_TASKS = 'GET_TASKS';

@@ -53,7 +53,7 @@ const SearchAndAdd = () => {
 	const classes = useStyles();
 
 	const groupsContext = useContext(GroupsContext);
-	const { searchGroups, clearSearch } = groupsContext;
+	const { searchGroups, clearSearch, createGroup } = groupsContext;
 
 	const text = useRef();
 
@@ -63,12 +63,12 @@ const SearchAndAdd = () => {
 		userEmail: '',
 	});
 
-	const [userEmails, setUserEmails] = useState([]);
+	const user = { email: 'yossarian@gmail.com' };
+
+	const [userEmails, setUserEmails] = useState([user.email]);
 
 	const onChange = (e) => {
-		console.log('in onchage');
 		if (text.current.value !== '') {
-			console.log(e.target.value);
 			searchGroups(e.target.value);
 		} else {
 			clearSearch();
@@ -76,7 +76,6 @@ const SearchAndAdd = () => {
 	};
 
 	const onChangeGroupData = (e) => {
-		console.log(e.target.value);
 		setNewGroupData({ ...newGroupData, [e.target.name]: e.target.value });
 	};
 
@@ -94,7 +93,11 @@ const SearchAndAdd = () => {
 
 	const handleClose = () => {
 		setOpen(false);
-		console.log(userEmails);
+	};
+
+	const create = () => {
+		setOpen(false);
+		createGroup({ groupName: newGroupData.groupName, users: userEmails });
 	};
 
 	return (
@@ -167,7 +170,7 @@ const SearchAndAdd = () => {
 						<Button onClick={handleClose} color='primary'>
 							Cancel
 						</Button>
-						<Button onClick={handleClose} color='primary'>
+						<Button onClick={create} color='primary'>
 							Create
 						</Button>
 					</DialogActions>

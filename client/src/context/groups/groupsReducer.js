@@ -1,5 +1,6 @@
 import {
 	CLEAR_SEARCH,
+	CREATE_GROUP,
 	GET_GROUPS_FOR_USER,
 	SEARCH_GROUPS,
 	SET_CURRENT_GROUP,
@@ -33,6 +34,12 @@ const reducer = (state, action) => {
 			return {
 				...state,
 				current: action.payload,
+			};
+
+		case CREATE_GROUP:
+			return {
+				...state,
+				groups: [...state.groups, action.payload],
 			};
 
 		default:
