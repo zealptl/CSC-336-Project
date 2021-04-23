@@ -1,1 +1,3 @@
 export const GET_GROUPS_FOR_USER = 'GET_GROUPS_FOR_USER';
+export const SEARCH_GROUPS = 'SEARCH_GROUPS';
+export const CLEAR_SEARCH = 'CLEAR_SEARCH';

@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
 import { Button, makeStyles } from '@material-ui/core';
 
 import { AppLogo, GroupList, SearchAndAdd } from './index';
+
+import GroupsContext from '../context/groups/groupsContext';
 
 const useStyles = makeStyles((theme) => ({
 	container: {
@@ -31,14 +33,25 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const Sidebar = ({ groups }) => {
+const Sidebar = () => {
 	const classes = useStyles();
+
+	const groupsContext = useContext(GroupsContext);
+	const { groups, filtered, getGroupsForUser } = groupsContext;
+	const user = { email: 'yossarian@gmail.com' };
+
+	useEffect(() => {
+		if (user && groups.length === 0) {
+			getGroupsForUser(user.email);
+		}
+		// eslint-disable-next-line
+	}, [user, groups]);
 
 	return (
 		<div className={classes.container}>
 			<AppLogo />
 			<SearchAndAdd />
-			<GroupList groups={groups} />
+			<GroupList groups={filtered === null ? groups : filtered} />
 
 			<div className={classes.signoutContianer}>
 				<Button variant='outlined' className={classes.signout}>

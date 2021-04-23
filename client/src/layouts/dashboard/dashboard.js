@@ -1,9 +1,7 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React from 'react';
 import { Grid, makeStyles } from '@material-ui/core';
 import { Widget as ChatWidget } from 'react-chat-widget';
 import 'react-chat-widget/lib/styles.css';
-
-import GroupsContext from '../../context/groups/groupsContext';
 
 import { Sidebar, TasksSection } from '../../components';
 
@@ -23,22 +21,11 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = () => {
 	const classes = useStyles();
 
-	const groupsContext = useContext(GroupsContext);
-	const { groups, getGroupsForUser } = groupsContext;
-	const user = { email: 'cathcart@gmail.com' };
-
-	useEffect(() => {
-		if (user && groups.length === 0) {
-			getGroupsForUser(user.email);
-		}
-		// eslint-disable-next-line
-	}, [user, groups]);
-
 	return (
 		<div>
 			<Grid container spacing={3} className={classes.main}>
 				<Grid item xs={12} sm={3} className={classes.itemContainer}>
-					<Sidebar groups={groups} />
+					<Sidebar />
 				</Grid>
 
 				<Grid item xs={12} sm={9} className={classes.itemContainer}>
