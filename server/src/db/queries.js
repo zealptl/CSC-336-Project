@@ -106,7 +106,7 @@ export default {
     }),
     insertTask: values => ({
         name: 'insert-task',
-        text: `INSERT INTO Task (groupID, task, status, userEmail)
+        text: `INSERT INTO Task (groupID, task, currentStatus, userEmail)
                VALUES ($1, $2, $3, $4) RETURNING taskid;`,
         values,
     }),
