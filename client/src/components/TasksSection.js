@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Button, makeStyles } from '@material-ui/core';
 
 import { GroupDetails, TasksColumnsContainer } from './index';
+
+import GroupsContext from '../context/groups/groupsContext';
 
 const useStyles = makeStyles((theme) => ({
 	container: {
@@ -31,12 +33,15 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const TasksSection = ({ group, tasks }) => {
+const TasksSection = () => {
 	const classes = useStyles();
+
+	const groupsContext = useContext(GroupsContext);
+	const { current } = groupsContext;
 
 	return (
 		<div className={classes.container}>
-			<GroupDetails group={group} />
+			<GroupDetails group={current} />
 
 			<div className={classes.buttonContainer}>
 				<Button variant='contained' color='primary' className={classes.button}>

@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import { Avatar, makeStyles } from '@material-ui/core';
+
+import GroupsContext from '../context/groups/groupsContext';
 
 const useStyles = makeStyles((theme) => ({
 	container: {
@@ -37,8 +39,12 @@ const useStyles = makeStyles((theme) => ({
 
 const GroupListItem = ({ group }) => {
 	const classes = useStyles();
+
+	const groupsContext = useContext(GroupsContext);
+	const { setCurrent } = groupsContext;
+
 	return (
-		<div className={classes.container}>
+		<div className={classes.container} onClick={() => setCurrent(group)}>
 			<div className={classes.bar}>{''} </div>
 			<Avatar className={classes.avatar}>{group.groupname[0]}</Avatar>
 			<h4 className={classes.groupName}>{group.groupname}</h4>

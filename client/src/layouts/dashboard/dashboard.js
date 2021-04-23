@@ -29,7 +29,7 @@ const Dashboard = () => {
 				</Grid>
 
 				<Grid item xs={12} sm={9} className={classes.itemContainer}>
-					{/* <TasksSection group={groups[0]} /> */}
+					<TasksSection />
 				</Grid>
 			</Grid>
 

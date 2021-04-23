@@ -3,7 +3,13 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import GroupsContext from './groupsContext';
 import GroupsReducer from './groupsReducer';
-import { GET_GROUPS_FOR_USER, SEARCH_GROUPS, CLEAR_SEARCH } from '../types';
+import {
+	GET_GROUPS_FOR_USER,
+	SEARCH_GROUPS,
+	CLEAR_SEARCH,
+	SET_CURRENT_GROUP,
+	CLEAR_CURRENT,
+} from '../types';
 
 const groupsState = (props) => {
 	const initialState = {
@@ -47,6 +53,14 @@ const groupsState = (props) => {
 		dispatch({ type: CLEAR_SEARCH });
 	};
 
+	const setCurrent = (group) => {
+		dispatch({ type: SET_CURRENT_GROUP, payload: group });
+	};
+
+	const clearCurrent = () => {
+		dispatch({ action: CLEAR_CURRENT });
+	};
+
 	return (
 		<GroupsContext.Provider
 			value={{
@@ -58,6 +72,7 @@ const groupsState = (props) => {
 				getGroupsForUser,
 				searchGroups,
 				clearSearch,
+				setCurrent,
 			}}
 		>
 			{props.children}{' '}

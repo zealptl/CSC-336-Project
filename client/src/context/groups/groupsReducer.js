@@ -1,4 +1,9 @@
-import { CLEAR_SEARCH, GET_GROUPS_FOR_USER, SEARCH_GROUPS } from '../types';
+import {
+	CLEAR_SEARCH,
+	GET_GROUPS_FOR_USER,
+	SEARCH_GROUPS,
+	SET_CURRENT_GROUP,
+} from '../types';
 
 const reducer = (state, action) => {
 	switch (action.type) {
@@ -6,6 +11,7 @@ const reducer = (state, action) => {
 			return {
 				...state,
 				groups: action.payload,
+				current: action.payload[0],
 			};
 
 		case SEARCH_GROUPS:
@@ -21,6 +27,12 @@ const reducer = (state, action) => {
 			return {
 				...state,
 				filtered: null,
+			};
+
+		case SET_CURRENT_GROUP:
+			return {
+				...state,
+				current: action.payload,
 			};
 
 		default:
