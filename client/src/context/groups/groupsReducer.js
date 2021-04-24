@@ -1,4 +1,5 @@
 import {
+	ADD_MEMBER,
 	CLEAR_SEARCH,
 	CREATE_GROUP,
 	GET_GROUPS_FOR_USER,
@@ -40,6 +41,22 @@ const reducer = (state, action) => {
 			return {
 				...state,
 				groups: [...state.groups, action.payload],
+			};
+
+		case ADD_MEMBER:
+			const group = state.groups.find(
+				(g) => g.groupid === action.payload.groupid
+			);
+			group.users = action.payload.users;
+			return {
+				...state,
+				groups: state.groups.map((g) => ({
+					...g,
+					users:
+						g.groupid === action.payload.groupid
+							? action.payload.users
+							: g.users,
+				})),
 			};
 
 		default:

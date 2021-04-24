@@ -9,6 +9,7 @@ import {
 	CLEAR_SEARCH,
 	SET_CURRENT_GROUP,
 	CREATE_GROUP,
+	ADD_MEMBER,
 } from '../types';
 
 const groupsState = (props) => {
@@ -80,6 +81,27 @@ const groupsState = (props) => {
 		}
 	};
 
+	const addMember = async (member) => {
+		try {
+			console.log('MEMBER:', member);
+			const res = await axios.post(
+				'http://localhost:8080/api/groupUser/',
+				member
+			);
+			console.log('RES:', res.data);
+			const groupUsers = await axios.get(
+				`http://localhost:8080/api/groupUser/getUsersForGroup/${member.groupID}`
+			);
+
+			dispatch({
+				type: ADD_MEMBER,
+				payload: { groupid: member.groupID, users: groupUsers.data.users },
+			});
+		} catch (error) {
+			console.log(error);
+		}
+	};
+
 	return (
 		<GroupsContext.Provider
 			value={{
@@ -93,6 +115,7 @@ const groupsState = (props) => {
 				clearSearch,
 				setCurrent,
 				createGroup,
+				addMember,
 			}}
 		>
 			{props.children}{' '}

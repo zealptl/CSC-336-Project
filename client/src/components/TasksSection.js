@@ -43,13 +43,17 @@ const useStyles = makeStyles((theme) => ({
 			color: '#FFF',
 		},
 	},
+	dialog: {
+		width: '600px',
+		height: '400px',
+	},
 }));
 
 const TasksSection = () => {
 	const classes = useStyles();
 
 	const groupsContext = useContext(GroupsContext);
-	const { current } = groupsContext;
+	const { current, addMember } = groupsContext;
 
 	const tasksContext = useContext(TasksContext);
 	const { createTask } = tasksContext;
@@ -57,10 +61,13 @@ const TasksSection = () => {
 	const user = { email: 'yossarian@gmail.com' };
 
 	const [open, setOpen] = useState(false);
+	const [addMemberOpen, setAddMemberOpen] = useState(false);
+
 	const [task, setTask] = useState({
 		task: '',
 		currentStatus: '',
 	});
+	const [newUserEmail, setNewUserEmail] = useState('');
 
 	const onChange = (e) =>
 		setTask({
@@ -68,12 +75,23 @@ const TasksSection = () => {
 			[e.target.name]: e.target.value,
 		});
 
-	const handleClickOpen = () => {
+	const handleNewTaskOpen = () => {
 		setOpen(true);
 	};
+	const handleNewMemberOpen = () => {
+		setAddMemberOpen(true);
+	};
 
-	const handleClose = () => {
+	const handleNewTaskClose = () => {
 		setOpen(false);
+	};
+
+	const handleNewMemberClose = () => {
+		setAddMemberOpen(false);
+	};
+
+	const onNewMemberChange = (e) => {
+		setNewUserEmail(e.target.value);
 	};
 
 	const create = () => {
@@ -86,6 +104,15 @@ const TasksSection = () => {
 		});
 	};
 
+	const addNewMember = () => {
+		setAddMemberOpen(false);
+
+		addMember({
+			groupID: current.groupid,
+			userEmail: newUserEmail,
+		});
+	};
+
 	return (
 		<div className={classes.container}>
 			<GroupDetails group={current} />
@@ -95,7 +122,7 @@ const TasksSection = () => {
 					variant='contained'
 					color='primary'
 					aria-label='add'
-					onClick={handleClickOpen}
+					onClick={handleNewTaskOpen}
 					className={classes.button}
 				>
 					+ New Task
@@ -104,6 +131,8 @@ const TasksSection = () => {
 				<Button
 					variant='outlined'
 					color='primary'
+					aria-label='add-member'
+					onClick={handleNewMemberOpen}
 					className={[classes.button, classes.addMemberButton]}
 				>
 					+ Add Member
@@ -144,7 +173,7 @@ const TasksSection = () => {
 					</FormControl>
 
 					<DialogActions>
-						<Button onClick={handleClose} color='primary'>
+						<Button onClick={handleNewTaskClose} color='primary'>
 							Cancel
 						</Button>
 						<Button onClick={create} color='primary'>
@@ -152,6 +181,37 @@ const TasksSection = () => {
 						</Button>
 					</DialogActions>
 				</DialogContent>
+			</Dialog>
+
+			<Dialog
+				open={addMemberOpen}
+				aria-labelledby='addmember-form-dialog-title'
+			>
+				<DialogTitle id='addmember-form-dialog-title'>
+					Add New Member
+				</DialogTitle>
+				<DialogContent>
+					<TextField
+						variant='outlined'
+						margin='normal'
+						required
+						fullWidth
+						onChange={onNewMemberChange}
+						value={newUserEmail}
+						id='newUserEmail'
+						label='User Email'
+						name='newUserEmail'
+					/>
+				</DialogContent>
+
+				<DialogActions>
+					<Button onClick={handleNewMemberClose} color='primary'>
+						Cancel
+					</Button>
+					<Button onClick={addNewMember} color='primary'>
+						Add
+					</Button>
+				</DialogActions>
 			</Dialog>
 
 			<TasksColumnsContainer group={current} />
