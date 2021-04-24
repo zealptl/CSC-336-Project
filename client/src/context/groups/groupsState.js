@@ -83,12 +83,8 @@ const groupsState = (props) => {
 
 	const addMember = async (member) => {
 		try {
-			console.log('MEMBER:', member);
-			const res = await axios.post(
-				'http://localhost:8080/api/groupUser/',
-				member
-			);
-			console.log('RES:', res.data);
+			await axios.post('http://localhost:8080/api/groupUser/', member);
+
 			const groupUsers = await axios.get(
 				`http://localhost:8080/api/groupUser/getUsersForGroup/${member.groupID}`
 			);

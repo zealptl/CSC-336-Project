@@ -5,32 +5,33 @@ const reducer = (state, action) => {
 		case GET_TASKS:
 			return {
 				...state,
-				tasks: action.payload,
+				toDoTasks: action.payload.toDoTasks,
+				inProgressTasks: action.payload.inProgressTasks,
+				doneTasks: action.payload.doneTasks,
 				loading: false,
 			};
 
 		case CREATE_TASKS:
-			const newState = state;
-
-			newState.tasks[action.payload.taskArray] = [
-				...state.tasks[action.payload.taskArray],
+			state[action.payload.status] = [
+				...state[action.payload.status],
 				action.payload.task,
 			];
-			return newState;
+
+			return { ...state };
 
 		case UPDATE_TASK:
 			const updatedState = state;
 
-			updatedState.tasks[action.payload.oldStatus] = state.tasks[
+			updatedState[action.payload.oldStatus] = state[
 				action.payload.oldStatus
 			].filter((t) => t.taskid !== action.payload.task.taskid);
 
-			updatedState.tasks[action.payload.newStatus] = [
-				...state.tasks[action.payload.newStatus],
+			updatedState[action.payload.newStatus] = [
+				...state[action.payload.newStatus],
 				action.payload.task,
 			];
 
-			return updatedState;
+			return { ...updatedState };
 
 		default:
 			return state;

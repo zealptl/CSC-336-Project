@@ -7,11 +7,10 @@ import { CREATE_TASKS, GET_TASKS, UPDATE_TASK } from '../types';
 
 const tasksState = (props) => {
 	const initialState = {
-		tasks: {
-			toDoTasks: [],
-			inProgressTasks: [],
-			doneTasks: [],
-		},
+		toDoTasks: [],
+		inProgressTasks: [],
+		doneTasks: [],
+
 		current: null,
 		error: null,
 		loading: true,
@@ -59,7 +58,7 @@ const tasksState = (props) => {
 
 			dispatch({
 				type: CREATE_TASKS,
-				payload: { task: taskRes.data.task, taskArray: type },
+				payload: { task: taskRes.data.task, status: type },
 			});
 		} catch (error) {
 			console.log(error);
@@ -68,7 +67,6 @@ const tasksState = (props) => {
 
 	const updateTask = async (update) => {
 		try {
-			console.log('UPDATE:', update);
 			const res = await axios.patch(
 				`http://localhost:8080/api/task/${update.taskid}`,
 				{
@@ -77,13 +75,9 @@ const tasksState = (props) => {
 				}
 			);
 
-			console.log('RES:', res.data);
-
 			const updatedTask = await axios.get(
 				`http://localhost:8080/api/task/getTaskFromId/${update.taskid}`
 			);
-
-			console.log('UPDATED:', updatedTask.data);
 
 			let oldStatus = '';
 			let newStatus = '';
@@ -118,7 +112,9 @@ const tasksState = (props) => {
 	return (
 		<TasksContext.Provider
 			value={{
-				tasks: state.tasks,
+				toDoTasks: state.toDoTasks,
+				inProgressTasks: state.inProgressTasks,
+				doneTasks: state.doneTasks,
 				current: state.current,
 				error: state.error,
 				loading: state.loading,

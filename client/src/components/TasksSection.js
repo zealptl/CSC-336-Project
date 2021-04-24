@@ -57,12 +57,14 @@ const TasksSection = () => {
 	const { current, addMember } = groupsContext;
 
 	const tasksContext = useContext(TasksContext);
-	const { createTask, tasks, updateTask } = tasksContext;
-	const allTasks = [
-		...tasks.toDoTasks,
-		...tasks.inProgressTasks,
-		...tasks.doneTasks,
-	];
+	const {
+		createTask,
+		toDoTasks,
+		inProgressTasks,
+		doneTasks,
+		updateTask,
+	} = tasksContext;
+	const allTasks = [...toDoTasks, ...inProgressTasks, ...doneTasks];
 
 	const user = { email: 'yossarian@gmail.com' };
 
