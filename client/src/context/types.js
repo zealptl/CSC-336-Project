@@ -1,1 +1,12 @@
 export const GET_GROUPS_FOR_USER = 'GET_GROUPS_FOR_USER';
+export const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS';
+export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
+export const SIGNIN_FAIL = 'SIGNIN_FAIL';
+export const SIGNUP_FAIL = 'SIGNUP_FAIL';
+export const LOAD_USER = 'LOAD_USER';
+export const SIGNOUT = 'SIGNOUT';
+export const SIGNOUT_FAIL = 'SIGNOUT_FAIL';
+export const AUTH_ERROR = 'AUTH_ERROR';
+export const CLEAR_ERRORS = 'CLEAR_ERRORS';
+export const CLEAR_MSG = 'CLEAR_MSG';
+export const SERVER_ERROR = 'SERVER_ERROR';
