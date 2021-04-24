@@ -10,12 +10,12 @@ import {
 	Select,
 	FormControl,
 	InputLabel,
-	Input,
 } from '@material-ui/core';
 
 import { GroupDetails, TasksColumnsContainer } from './index';
 
 import GroupsContext from '../context/groups/groupsContext';
+import TasksContext from '../context/tasks/tasksContext';
 
 const useStyles = makeStyles((theme) => ({
 	container: {
@@ -50,12 +50,16 @@ const TasksSection = () => {
 
 	const groupsContext = useContext(GroupsContext);
 	const { current } = groupsContext;
+
+	const tasksContext = useContext(TasksContext);
+	const { createTask } = tasksContext;
+
 	const user = { email: 'yossarian@gmail.com' };
 
 	const [open, setOpen] = useState(false);
 	const [task, setTask] = useState({
 		task: '',
-		status: '',
+		currentStatus: '',
 	});
 
 	const onChange = (e) =>
@@ -74,8 +78,12 @@ const TasksSection = () => {
 
 	const create = () => {
 		setOpen(false);
-		console.log({ groupID: current.groupid, userEmail: user.email, ...task });
-		// createGroup({ groupName: newGroupData.groupName, users: userEmails });
+
+		createTask({
+			groupID: current.groupid,
+			userEmail: user.email,
+			...task,
+		});
 	};
 
 	return (
@@ -124,8 +132,8 @@ const TasksSection = () => {
 							label='Current Status'
 							onChange={onChange}
 							inputProps={{
-								name: 'status',
-								id: 'status',
+								name: 'currentStatus',
+								id: 'currentStatus',
 							}}
 						>
 							<option aria-label='None' value='' />

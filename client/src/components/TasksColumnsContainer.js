@@ -18,7 +18,7 @@ const TasksColumnsContainer = ({ group }) => {
 	const classes = useStyles();
 
 	const tasksContext = useContext(TasksContext);
-	const { getTasks, toDoTasks, inProgressTasks, doneTasks } = tasksContext;
+	const { getTasks, tasks } = tasksContext;
 
 	useEffect(() => {
 		if (group) {
@@ -32,15 +32,18 @@ const TasksColumnsContainer = ({ group }) => {
 		<div className={classes.container}>
 			<Grid className={classes.gridContainer} container spacing={3}>
 				<Grid item xs={12} sm={4}>
-					<TasksColumn tasks={toDoTasks} columnTitle='To Do' />
+					<TasksColumn tasks={tasks.toDoTasks} columnTitle='To Do' />
 				</Grid>
 
 				<Grid item xs={12} sm={4}>
-					<TasksColumn tasks={inProgressTasks} columnTitle='In Progress' />
+					<TasksColumn
+						tasks={tasks.inProgressTasks}
+						columnTitle='In Progress'
+					/>
 				</Grid>
 
 				<Grid item xs={12} sm={4}>
-					<TasksColumn tasks={doneTasks} columnTitle='Done' />
+					<TasksColumn tasks={tasks.doneTasks} columnTitle='Done' />
 				</Grid>
 			</Grid>
 		</div>

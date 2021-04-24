@@ -59,28 +59,20 @@ const groupsState = (props) => {
 
 	const createGroup = async (groupData) => {
 		try {
-			console.log('IN GROUP DATA');
-			console.log('GROUP DATA:', groupData);
 			const res = await axios.post(
 				`http://localhost:8080/api/group/`,
 				groupData
 			);
 
-			console.log('NEW GROUP ID:', res.data.createdGroupId);
-
 			const groupUsers = await axios.get(
 				`http://localhost:8080/api/groupUser/getUsersForGroup/${res.data.createdGroupId}`
 			);
-
-			console.log('NEW GROUP USERS:', groupUsers.data.users);
 
 			const group = {
 				groupid: res.data.createdGroupId,
 				groupname: groupData.groupName,
 				users: groupUsers.data.users,
 			};
-
-			console.log('NEW GROUP:', group);
 
 			dispatch({ type: CREATE_GROUP, payload: group });
 		} catch (error) {
