@@ -11,6 +11,7 @@ import {
 	FormControl,
 	InputLabel,
 } from '@material-ui/core';
+import { Autocomplete } from '@material-ui/lab';
 
 import { GroupDetails, TasksColumnsContainer } from './index';
 
@@ -56,18 +57,28 @@ const TasksSection = () => {
 	const { current, addMember } = groupsContext;
 
 	const tasksContext = useContext(TasksContext);
-	const { createTask } = tasksContext;
+	const { createTask, tasks, updateTask } = tasksContext;
+	const allTasks = [
+		...tasks.toDoTasks,
+		...tasks.inProgressTasks,
+		...tasks.doneTasks,
+	];
 
 	const user = { email: 'yossarian@gmail.com' };
 
 	const [open, setOpen] = useState(false);
 	const [addMemberOpen, setAddMemberOpen] = useState(false);
+	const [moveTaskOpen, setMoveTaskOpen] = useState(false);
 
 	const [task, setTask] = useState({
 		task: '',
 		currentStatus: '',
 	});
 	const [newUserEmail, setNewUserEmail] = useState('');
+	const [moveTask, setMoveTask] = useState({
+		task: undefined,
+		newStatus: '',
+	});
 
 	const onChange = (e) =>
 		setTask({
@@ -82,12 +93,20 @@ const TasksSection = () => {
 		setAddMemberOpen(true);
 	};
 
+	const handleMoveTaskOpen = () => {
+		setMoveTaskOpen(true);
+	};
+
 	const handleNewTaskClose = () => {
 		setOpen(false);
 	};
 
 	const handleNewMemberClose = () => {
 		setAddMemberOpen(false);
+	};
+
+	const handleMoveTaskClose = () => {
+		setMoveTaskOpen(false);
 	};
 
 	const onNewMemberChange = (e) => {
@@ -113,6 +132,17 @@ const TasksSection = () => {
 		});
 	};
 
+	const update = () => {
+		setMoveTaskOpen(false);
+
+		updateTask({
+			oldStatus: moveTask.task.currentstatus,
+			newStatus: moveTask.newStatus,
+			taskid: moveTask.task.taskid,
+			task: moveTask.task.task,
+		});
+	};
+
 	return (
 		<div className={classes.container}>
 			<GroupDetails group={current} />
@@ -131,6 +161,16 @@ const TasksSection = () => {
 				<Button
 					variant='outlined'
 					color='primary'
+					aria-label='move-task'
+					onClick={handleMoveTaskOpen}
+					className={[classes.button, classes.addMemberButton]}
+				>
+					Move Task
+				</Button>
+
+				<Button
+					variant='outlined'
+					color='primary'
 					aria-label='add-member'
 					onClick={handleNewMemberOpen}
 					className={[classes.button, classes.addMemberButton]}
@@ -139,7 +179,12 @@ const TasksSection = () => {
 				</Button>
 			</div>
 
-			<Dialog open={open} aria-labelledby='form-dialog-title'>
+			<Dialog
+				maxWidth='sm'
+				fullWidth
+				open={open}
+				aria-labelledby='form-dialog-title'
+			>
 				<DialogTitle id='form-dialog-title'>Create New Task</DialogTitle>
 				<DialogContent>
 					<TextField
@@ -185,6 +230,8 @@ const TasksSection = () => {
 
 			<Dialog
 				open={addMemberOpen}
+				fullWidth
+				maxWidth='sm'
 				aria-labelledby='addmember-form-dialog-title'
 			>
 				<DialogTitle id='addmember-form-dialog-title'>
@@ -212,6 +259,57 @@ const TasksSection = () => {
 						Add
 					</Button>
 				</DialogActions>
+			</Dialog>
+
+			<Dialog
+				maxWidth='sm'
+				fullWidth
+				open={moveTaskOpen}
+				aria-labelledby='move-task-form-dialog-title'
+			>
+				<DialogTitle id='move-task-form-dialog-title'>Move Task</DialogTitle>
+				<DialogContent>
+					<Autocomplete
+						options={allTasks}
+						getOptionLabel={(option) => option.task}
+						renderInput={(params) => (
+							<TextField {...params} label='Task to move' variant='outlined' />
+						)}
+						onChange={(e, newValue) =>
+							setMoveTask({ ...moveTask, task: newValue })
+						}
+					/>
+
+					<FormControl variant='outlined' fullWidth margin='normal'>
+						<InputLabel>Move To</InputLabel>
+						<Select
+							native
+							required
+							label='Move To'
+							onChange={(e) =>
+								setMoveTask({ ...moveTask, newStatus: e.target.value })
+							}
+							inputProps={{
+								name: 'newStatus',
+								id: 'newStatus',
+							}}
+						>
+							<option aria-label='None' value='' />
+							<option value='To Do'>To Do</option>
+							<option value='In Progress'>In Progress</option>
+							<option value='Done'>Done</option>
+						</Select>
+					</FormControl>
+
+					<DialogActions>
+						<Button onClick={handleMoveTaskClose} color='primary'>
+							Cancel
+						</Button>
+						<Button onClick={update} color='primary'>
+							Move
+						</Button>
+					</DialogActions>
+				</DialogContent>
 			</Dialog>
 
 			<TasksColumnsContainer group={current} />

@@ -3,7 +3,7 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import TasksContext from './tasksContext';
 import TasksReducer from './taskReducer';
-import { CREATE_TASKS, GET_TASKS } from '../types';
+import { CREATE_TASKS, GET_TASKS, UPDATE_TASK } from '../types';
 
 const tasksState = (props) => {
 	const initialState = {
@@ -66,6 +66,55 @@ const tasksState = (props) => {
 		}
 	};
 
+	const updateTask = async (update) => {
+		try {
+			console.log('UPDATE:', update);
+			const res = await axios.patch(
+				`http://localhost:8080/api/task/${update.taskid}`,
+				{
+					currentStatus: update.newStatus,
+					task: update.task,
+				}
+			);
+
+			console.log('RES:', res.data);
+
+			const updatedTask = await axios.get(
+				`http://localhost:8080/api/task/getTaskFromId/${update.taskid}`
+			);
+
+			console.log('UPDATED:', updatedTask.data);
+
+			let oldStatus = '';
+			let newStatus = '';
+
+			if (update.oldStatus === 'To Do') {
+				oldStatus = 'toDoTasks';
+			} else if (update.oldStatus === 'In Progress') {
+				oldStatus = 'inProgressTasks';
+			} else if (update.oldStatus === 'Done') {
+				oldStatus = 'doneTasks';
+			}
+
+			if (update.newStatus === 'To Do') {
+				newStatus = 'toDoTasks';
+			} else if (update.newStatus === 'In Progress') {
+				newStatus = 'inProgressTasks';
+			} else if (update.newStatus === 'Done') {
+				newStatus = 'doneTasks';
+			}
+
+			dispatch({
+				type: UPDATE_TASK,
+				payload: {
+					oldStatus,
+					newStatus,
+					task: updatedTask.data.task,
+				},
+			});
+		} catch (error) {}
+	};
+
 	return (
 		<TasksContext.Provider
 			value={{
@@ -75,6 +124,7 @@ const tasksState = (props) => {
 				loading: state.loading,
 				getTasks,
 				createTask,
+				updateTask,
 			}}
 		>
 			{props.children}{' '}

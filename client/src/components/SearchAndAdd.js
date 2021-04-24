@@ -128,6 +128,8 @@ const SearchAndAdd = () => {
 			<Dialog
 				open={open}
 				onClose={handleClose}
+				maxWidth='sm'
+				fullWidth
 				aria-labelledby='form-dialog-title'
 			>
 				<DialogTitle id='form-dialog-title'>Create New Group</DialogTitle>
