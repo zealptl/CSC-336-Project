@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import {
 	Avatar,
@@ -12,6 +12,8 @@ import {
 } from '@material-ui/core';
 import LockIcon from '@material-ui/icons/Lock';
 import Illustration from '../../assets/auth_illustration.svg';
+import AuthContext from '../../context/auth/authContext';
+
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -55,17 +57,37 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignInForm = ({ classes }) => {
+	const authContext = useContext(AuthContext);
+	const { signin, isAuthenticated, error, clearErrors } = authContext;
+
 	const [signinInfo, setSigninInfo] = useState({
 		email: '',
 		password: '',
 	});
+
+	useEffect(() => {
+		if (isAuthenticated) {
+		  props.history.push(`/dashboard`);
+		}
+	
+		if (error) {
+		  console.log('Error', error);
+		  clearErrors();
+		}
+	
+		// eslint-disable-next-line
+	}, [error, isAuthenticated, props.history]);
 
 	const onChange = (e) =>
 		setSigninInfo({ ...signinInfo, [e.target.name]: e.target.value });
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		console.log(signinInfo);
+		if (email === '' || password === '') {
+			console.log('Please fill in all the fields', error);
+		} else {
+			signin(email, password);
+		}
 	};
 
 	return (
