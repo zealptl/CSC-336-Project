@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useContext, useRef } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { Grid, makeStyles } from '@material-ui/core';
 import { Widget as ChatWidget } from 'react-chat-widget';
 import 'react-chat-widget/lib/styles.css';

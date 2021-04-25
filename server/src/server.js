@@ -6,7 +6,7 @@ import groupRouter from './routes/group.js';
 import groupUserRouter from './routes/groupUsers.js';
 import taskRouter from './routes/task.js';
 import messageRouter from './routes/message.js';
-import authRouter from './routes/auth';
+import authRouter from './routes/auth.js';
 
 // All routes are documented in their controller directories
 // ALL KEYS FROM RETURNED JSON ARE IN LOWERCASE

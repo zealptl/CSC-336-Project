@@ -14,7 +14,6 @@ import LockIcon from '@material-ui/icons/Lock';
 import Illustration from '../../assets/auth_illustration.svg';
 import AuthContext from '../../context/auth/authContext';
 
-
 const useStyles = makeStyles((theme) => ({
 	root: {
 		height: '100vh',
@@ -56,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const SignInForm = ({ classes }) => {
+const SignInForm = ({ classes, prop }) => {
 	const authContext = useContext(AuthContext);
 	const { signin, isAuthenticated, error, clearErrors } = authContext;
 
@@ -67,16 +66,16 @@ const SignInForm = ({ classes }) => {
 
 	useEffect(() => {
 		if (isAuthenticated) {
-		  classes.history.push(`/dashboard`);
+			prop.history.push(`/dashboard`);
 		}
-	
+
 		if (error) {
-		  console.log('Error', error);
-		  clearErrors();
+			console.log('Error', error);
+			clearErrors();
 		}
-	
+
 		// eslint-disable-next-line
-	}, [error, isAuthenticated, classes.history]);
+	}, [error, isAuthenticated, prop.history]);
 
 	const onChange = (e) =>
 		setSigninInfo({ ...signinInfo, [e.target.name]: e.target.value });
@@ -143,7 +142,7 @@ const SignInForm = ({ classes }) => {
 	);
 };
 
-const SignIn = () => {
+const SignIn = (props) => {
 	const classes = useStyles();
 	return (
 		<Grid container className={classes.root}>
@@ -156,7 +155,7 @@ const SignIn = () => {
 				/>
 			</Grid>
 			<Grid item xs={5}>
-				<SignInForm classes={classes} />
+				<SignInForm classes={classes} prop={props} />
 			</Grid>
 		</Grid>
 	);

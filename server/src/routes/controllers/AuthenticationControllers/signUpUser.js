@@ -1,11 +1,10 @@
-import { createUser } from '../UserControllers/createUser';
+import { createUser } from '../UserControllers/createUser.js';
 
 export const signUpUser = async (req, res) => {
-    try {
-        await createUser(req, res);
-
-    } catch (error) {
-      console.error(error);
-      res.status(500).json({ msg: error.message });
-    }
-  };
+	try {
+		await createUser(req, res);
+	} catch (error) {
+		console.error(error);
+		res.status(500).json({ msg: error.message });
+	}
+};

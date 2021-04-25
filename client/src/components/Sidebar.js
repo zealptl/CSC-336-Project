@@ -1,5 +1,7 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Button, makeStyles } from '@material-ui/core';
+import AuthContext from '../context/auth/authContext';
 
 import { AppLogo, GroupList, SearchAndAdd } from './index';
 
@@ -34,6 +36,16 @@ const useStyles = makeStyles((theme) => ({
 const Sidebar = ({ groups }) => {
 	const classes = useStyles();
 
+	const authContext = useContext(AuthContext);
+	const { signout } = authContext;
+
+	const history = useHistory();
+
+	const onSignOut = () => {
+		signout();
+		history.push('/auth/signin');
+	};
+
 	return (
 		<div className={classes.container}>
 			<AppLogo />
@@ -41,7 +53,11 @@ const Sidebar = ({ groups }) => {
 			<GroupList groups={groups} />
 
 			<div className={classes.signoutContianer}>
-				<Button variant='outlined' className={classes.signout}>
+				<Button
+					onClick={onSignOut}
+					variant='outlined'
+					className={classes.signout}
+				>
 					{' '}
 					Sign Out
 				</Button>
