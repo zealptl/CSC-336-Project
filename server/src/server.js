@@ -6,6 +6,7 @@ import groupRouter from './routes/group.js';
 import groupUserRouter from './routes/groupUsers.js';
 import taskRouter from './routes/task.js';
 import messageRouter from './routes/message.js';
+import authRouter from './routes/auth';
 
 // All routes are documented in their controller directories
 // ALL KEYS FROM RETURNED JSON ARE IN LOWERCASE
@@ -22,6 +23,6 @@ app.use('/api/group', groupRouter);
 app.use('/api/groupUser', groupUserRouter);
 app.use('/api/task', taskRouter);
 app.use('/api/message', messageRouter);
-
+app.use('/api/auth', authRouter);
 
 app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
