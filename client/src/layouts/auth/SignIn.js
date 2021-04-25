@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import {
 	Avatar,
@@ -67,7 +67,7 @@ const SignInForm = ({ classes }) => {
 
 	useEffect(() => {
 		if (isAuthenticated) {
-		  props.history.push(`/dashboard`);
+		  classes.history.push(`/dashboard`);
 		}
 	
 		if (error) {
@@ -76,17 +76,17 @@ const SignInForm = ({ classes }) => {
 		}
 	
 		// eslint-disable-next-line
-	}, [error, isAuthenticated, props.history]);
+	}, [error, isAuthenticated, classes.history]);
 
 	const onChange = (e) =>
 		setSigninInfo({ ...signinInfo, [e.target.name]: e.target.value });
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		if (email === '' || password === '') {
+		if (signinInfo.email === '' || signinInfo.password === '') {
 			console.log('Please fill in all the fields', error);
 		} else {
-			signin(email, password);
+			signin(signinInfo);
 		}
 	};
 

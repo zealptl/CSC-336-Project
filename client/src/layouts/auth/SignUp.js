@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import {
 	Avatar,
@@ -83,10 +83,7 @@ const SignUpForm = ({ classes }) => {
 			console.log('Please enter all fields', error);
 		} else {
 			signup({
-				firstName,
-				lastName,
-				email,
-				password,
+				signupInfo
 			});
 		}
 	};
