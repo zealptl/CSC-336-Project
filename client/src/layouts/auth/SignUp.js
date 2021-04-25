@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core';
 import LockIcon from '@material-ui/icons/Lock';
 import Illustration from '../../assets/auth_illustration.svg';
+import AuthContext from '../../context/auth/authContext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -53,6 +54,9 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 const SignUpForm = ({ classes }) => {
+	const authContext = useContext(AuthContext);
+	const { signup, msg, error, clearErrors, clearMsg } = authContext;
+
 	const [signupInfo, setSignupInfo] = useState({
 		firstName: '',
 		lastName: '',
@@ -69,8 +73,21 @@ const SignUpForm = ({ classes }) => {
 
 		if (signupInfo.password !== signupInfo.password2) {
 			console.log('Passwords do not match');
+		} else if (
+			!signupInfo.firstName ||
+			!signupInfo.lastName ||
+			!signupInfo.email ||
+			!signupInfo.password ||
+			!signupInfo.password2 
+		  ) {
+			console.log('Please enter all fields', error);
 		} else {
-			console.log(signupInfo);
+			signup({
+				firstName,
+				lastName,
+				email,
+				password,
+			});
 		}
 	};
 

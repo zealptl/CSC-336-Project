@@ -13,8 +13,6 @@ import {
   SIGNOUT,
   SIGNOUT_FAIL,
   AUTH_ERROR,
-  SUBTRACT_BALANCE,
-  SET_BALANCE,
   CLEAR_ERRORS,
   CLEAR_MSG,
   SERVER_ERROR,
@@ -107,6 +105,7 @@ const AuthState = (props) => {
       lastName,
       email,
       password,
+      password2,
     } = formData;
 
     try {
@@ -117,6 +116,7 @@ const AuthState = (props) => {
           lastName,
           email,
           password,
+          password2,
         },
         config
       );
