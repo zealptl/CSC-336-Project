@@ -6,6 +6,7 @@ import AuthContext from '../context/auth/authContext';
 import { AppLogo, GroupList, SearchAndAdd } from './index';
 
 import GroupsContext from '../context/groups/groupsContext';
+import UserContext from '../context/users/userContext';
 
 const useStyles = makeStyles((theme) => ({
 	container: {
@@ -44,6 +45,9 @@ const Sidebar = () => {
 	const authContext = useContext(AuthContext);
 	const { signout, user } = authContext;
 
+	const userContext = useContext(UserContext);
+	const { clearMessages } = userContext;
+
 	useEffect(() => {
 		if (user && groups.length === 0) {
 			getGroupsForUser(user.email);
@@ -54,6 +58,7 @@ const Sidebar = () => {
 	const history = useHistory();
 
 	const onSignOut = () => {
+		clearMessages();
 		clearGroups();
 		signout();
 		history.push('/auth/signin');

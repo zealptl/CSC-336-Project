@@ -1,4 +1,4 @@
-import { GET_MESSAGES, CREATE_MESSAGES } from '../types';
+import { GET_MESSAGES, CREATE_MESSAGES, CLEAR_MESSAGES } from '../types';
 
 const reducer = (state, action) => {
 	switch (action.type) {
@@ -7,12 +7,18 @@ const reducer = (state, action) => {
 				...state,
 				messages: action.payload,
 			};
-            
-        case CREATE_MESSAGES:
-            return {
-                ...state,
-                //messages: [...state.messages, action.payload],
-            }
+
+		case CREATE_MESSAGES:
+			return {
+				...state,
+				//messages: [...state.messages, action.payload],
+			};
+
+		case CLEAR_MESSAGES:
+			return {
+				...state,
+				messages: [],
+			};
 
 		default:
 			return state;

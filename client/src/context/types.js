@@ -23,4 +23,5 @@ export const CLEAR_MSG = 'CLEAR_MSG';
 export const SERVER_ERROR = 'SERVER_ERROR';
 
 export const GET_MESSAGES = 'GET MESSAGES';
-export const CREATE_MESSAGES = 'CREATE MESSAGES'
+export const CREATE_MESSAGES = 'CREATE MESSAGES';
+export const CLEAR_MESSAGES = 'CLEAR_MESSAGE';

@@ -2,6 +2,7 @@ import React, { useContext } from 'react';
 import { Avatar, makeStyles } from '@material-ui/core';
 
 import GroupsContext from '../context/groups/groupsContext';
+import UserContext from '../context/users/userContext';
 
 const useStyles = makeStyles((theme) => ({
 	container: {
@@ -43,11 +44,15 @@ const GroupListItem = ({ group }) => {
 	const groupsContext = useContext(GroupsContext);
 	const { setCurrent } = groupsContext;
 
+	const userContext = useContext(UserContext);
+	const { clearMessages } = userContext;
+
 	return (
 		<div
 			className={classes.container}
 			onClick={(e) => {
 				e.preventDefault();
+				clearMessages();
 				setCurrent(group);
 			}}
 		>
