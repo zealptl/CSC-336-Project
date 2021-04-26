@@ -53,4 +53,4 @@ npm run dev
 
 ### App Walkthough GIF
 
-<img src="epsilon_demo.gif" title = 'App Walkthrough' width=250 alt = 'Video Walkthrough' />
+<img src="epsilon_demo.gif" title = 'App Walkthrough' width=800 height=500 alt = 'Video Walkthrough' />
