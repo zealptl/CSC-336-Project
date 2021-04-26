@@ -12,8 +12,17 @@ import messageRouter from './routes/message.js'
 
 // Import utils
 import { getFromattedGroups, subscribeUser, unsubscribeUser } from './utils/groups.js';
-import { sendMessage } from './utils/message.js';
+import { sendMessage, sendReply } from './utils/message.js';
 import { formatGroup, formatMessage } from './utils/format.js';
+
+import path from 'path'
+
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 // All routes are documented in their controller directories
 // ALL KEYS FROM RETURNED JSON ARE IN LOWERCASE
@@ -26,12 +35,23 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 io.on('connection', client => {
+    console.log("nick is a popop");
     // Expected format of message:{groupID, body}
     client.on('message', message => {
+        console.log(message)
         sendMessage(client.id, message);
         io
             .to(formatGroup(message.groupID))
-            .emit('message', formatMessage(client.id, message));
+            .emit('messageReceived', formatMessage(client.id, message));
+    });
+    
+    // Expected format of reply:{replyTo, message:{groupID, body}}
+    client.on('reply', reply => {
+        console.log("AM REPLY");
+        sendReply(client.id, reply);
+        io 
+            .to(formatGroup(reply.message.groupID))
+            .emit('replyReceived', formatMessage(client.id, reply));
     });
     
     client.on('joinChat', userEmail => {
@@ -46,6 +66,8 @@ io.on('connection', client => {
     });
 });
 
+app.use(express.static(path.join(__dirname, 'testhtml')));
+
 app.use(bodyParser.json());
 
 app.use('/api/user', userRouter);
@@ -55,4 +77,4 @@ app.use('/api/task', taskRouter);
 app.use('/api/message', messageRouter);
 
 
-app.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
+server.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
