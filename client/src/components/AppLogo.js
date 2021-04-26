@@ -15,7 +15,7 @@ const AppLogo = () => {
 	const classes = useStyles();
 	return (
 		<div className={classes.logoContainer}>
-			<h1>App Name</h1>
+			<h1>Codename Epsilon</h1>
 		</div>
 	);
 };

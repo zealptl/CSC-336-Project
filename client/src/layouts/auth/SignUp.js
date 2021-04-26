@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useContext, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import {
 	Avatar,
@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core';
 import LockIcon from '@material-ui/icons/Lock';
 import Illustration from '../../assets/auth_illustration.svg';
+import AuthContext from '../../context/auth/authContext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -52,7 +53,23 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const SignUpForm = ({ classes }) => {
+const SignUpForm = ({ classes, prop }) => {
+	const authContext = useContext(AuthContext);
+	const { signup, error, clearErrors, isAuthenticated } = authContext;
+
+	useEffect(() => {
+		if (isAuthenticated) {
+			prop.history.push(`/dashboard`);
+		}
+
+		if (error) {
+			console.log('Error', error);
+			clearErrors();
+		}
+
+		// eslint-disable-next-line
+	}, [error, isAuthenticated, prop.history]);
+
 	const [signupInfo, setSignupInfo] = useState({
 		firstName: '',
 		lastName: '',
@@ -69,8 +86,21 @@ const SignUpForm = ({ classes }) => {
 
 		if (signupInfo.password !== signupInfo.password2) {
 			console.log('Passwords do not match');
+		} else if (
+			!signupInfo.firstName ||
+			!signupInfo.lastName ||
+			!signupInfo.email ||
+			!signupInfo.password ||
+			!signupInfo.password2
+		) {
+			console.log('Please enter all fields', error);
 		} else {
-			console.log(signupInfo);
+			signup({
+				firstName: signupInfo.firstName,
+				lastName: signupInfo.lastName,
+				email: signupInfo.email,
+				password: signupInfo.password,
+			});
 		}
 	};
 
@@ -159,7 +189,7 @@ const SignUpForm = ({ classes }) => {
 	);
 };
 
-const SignUp = () => {
+const SignUp = (props) => {
 	const classes = useStyles();
 	return (
 		<Grid container className={classes.root}>
@@ -172,7 +202,7 @@ const SignUp = () => {
 				/>
 			</Grid>
 			<Grid item xs={12} sm={8} md={5}>
-				<SignUpForm classes={classes} />
+				<SignUpForm classes={classes} prop={props} />
 			</Grid>
 		</Grid>
 	);

@@ -30,11 +30,11 @@ const Task = ({ task }) => {
 	return (
 		<div
 			className={classes.container}
-			style={{ background: theme.palette.task[task.status] }}
+			style={{ background: theme.palette.task[task.currentstatus] }}
 		>
 			<div
 				className={classes.bar}
-				style={{ background: theme.palette.taskBar[task.status] }}
+				style={{ background: theme.palette.taskBar[task.currentstatus] }}
 			></div>
 			<p>{task.task}</p>
 		</div>

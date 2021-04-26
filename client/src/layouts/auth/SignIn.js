@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useContext, useState, useEffect } from 'react';
 import { Link as RouterLink } from 'react-router-dom';
 import {
 	Avatar,
@@ -12,6 +12,7 @@ import {
 } from '@material-ui/core';
 import LockIcon from '@material-ui/icons/Lock';
 import Illustration from '../../assets/auth_illustration.svg';
+import AuthContext from '../../context/auth/authContext';
 
 const useStyles = makeStyles((theme) => ({
 	root: {
@@ -54,18 +55,38 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const SignInForm = ({ classes }) => {
+const SignInForm = ({ classes, prop }) => {
+	const authContext = useContext(AuthContext);
+	const { signin, isAuthenticated, error, clearErrors } = authContext;
+
 	const [signinInfo, setSigninInfo] = useState({
 		email: '',
 		password: '',
 	});
+
+	useEffect(() => {
+		if (isAuthenticated) {
+			prop.history.push(`/dashboard`);
+		}
+
+		if (error) {
+			console.log('Error', error);
+			clearErrors();
+		}
+
+		// eslint-disable-next-line
+	}, [error, isAuthenticated, prop.history]);
 
 	const onChange = (e) =>
 		setSigninInfo({ ...signinInfo, [e.target.name]: e.target.value });
 
 	const onSubmit = (e) => {
 		e.preventDefault();
-		console.log(signinInfo);
+		if (signinInfo.email === '' || signinInfo.password === '') {
+			console.log('Please fill in all the fields', error);
+		} else {
+			signin(signinInfo);
+		}
 	};
 
 	return (
@@ -121,7 +142,7 @@ const SignInForm = ({ classes }) => {
 	);
 };
 
-const SignIn = () => {
+const SignIn = (props) => {
 	const classes = useStyles();
 	return (
 		<Grid container className={classes.root}>
@@ -134,7 +155,7 @@ const SignIn = () => {
 				/>
 			</Grid>
 			<Grid item xs={5}>
-				<SignInForm classes={classes} />
+				<SignInForm classes={classes} prop={props} />
 			</Grid>
 		</Grid>
 	);

@@ -5,11 +5,12 @@ import { Task } from './index';
 
 const useStyles = makeStyles((theme) => ({
 	container: {
-		height: '100%',
+		height: '510px',
 		background: theme.palette.component.main,
 		boxShadow: '4px 4px 8px rgba(1, 25, 47, 0.11)',
 		borderRadius: '20px',
 		padding: theme.spacing(2),
+		overflow: 'auto',
 	},
 	title: {
 		marginBottom: theme.spacing(2),

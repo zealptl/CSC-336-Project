@@ -32,16 +32,21 @@ const useStyles = makeStyles((theme) => ({
 const GroupDetails = ({ group }) => {
 	const classes = useStyles();
 
+	const groupMembers =
+		group && group.users.length > 0
+			? group.users.map((u) => u.firstname + ' ' + u.lastname).join(', ')
+			: [];
+
 	return (
 		<div className={classes.container}>
 			<div className={classes.bar}></div>
-			<Avatar className={classes.avatar}>{group.groupName[0]}</Avatar>
+			<Avatar className={classes.avatar}>
+				{group ? group.groupname[0] : ''}
+			</Avatar>
 			<div className={classes.groupNameAndMembers}>
-				<h2 className={classes.groupName}>{group.groupName}</h2>
-				<h4 className={classes.groupMembers}>
-					{' '}
-					{group.groupMembers.join(', ')}{' '}
-				</h4>
+				<h2 className={classes.groupName}>{group ? group.groupname : ''}</h2>
+
+				<h4 className={classes.groupMembers}>{groupMembers}</h4>
 			</div>
 		</div>
 	);

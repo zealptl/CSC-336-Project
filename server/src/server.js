@@ -4,11 +4,12 @@ import bodyParser from 'body-parser'
 import http from 'http';
 import { Server } from 'socket.io';
 
-import userRouter from './routes/user.js'
-import groupRouter from './routes/group.js'
-import groupUserRouter from './routes/groupUsers.js'
-import taskRouter from './routes/task.js'
-import messageRouter from './routes/message.js'
+import userRouter from './routes/user.js';
+import groupRouter from './routes/group.js';
+import groupUserRouter from './routes/groupUsers.js';
+import taskRouter from './routes/task.js';
+import messageRouter from './routes/message.js';
+import authRouter from './routes/auth.js';
 
 // Import utils
 import { getFromattedGroups, subscribeUser, unsubscribeUser } from './utils/groups.js';
@@ -19,7 +20,6 @@ import path from 'path'
 
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
-import { SSL_OP_SSLEAY_080_CLIENT_DH_BUG } from 'constants';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -74,6 +74,6 @@ app.use('/api/group', groupRouter);
 app.use('/api/groupUser', groupUserRouter);
 app.use('/api/task', taskRouter);
 app.use('/api/message', messageRouter);
-
+app.use('/api/auth', authRouter);
 
 server.listen(PORT, () => console.log(`Server listening on port ${PORT}`));
