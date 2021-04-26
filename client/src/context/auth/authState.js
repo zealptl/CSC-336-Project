@@ -18,7 +18,7 @@ const AuthState = (props) => {
 	const initialState = {
 		isAuthenticated: null,
 		loading: true,
-		user: null,
+		user: JSON.parse(localStorage.getItem('user')),
 		msg: null,
 		error: null,
 	};

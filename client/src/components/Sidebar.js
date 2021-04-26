@@ -59,6 +59,13 @@ const Sidebar = () => {
 		history.push('/auth/signin');
 	};
 
+	const history = useHistory();
+
+	const onSignOut = () => {
+		signout();
+		history.push('/auth/signin');
+	};
+
 	return (
 		<div className={classes.container}>
 			<AppLogo />

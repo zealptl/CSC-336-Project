@@ -17,6 +17,7 @@ import { GroupDetails, TasksColumnsContainer } from './index';
 
 import GroupsContext from '../context/groups/groupsContext';
 import TasksContext from '../context/tasks/tasksContext';
+import AuthContext from '../context/auth/authContext';
 
 const useStyles = makeStyles((theme) => ({
 	container: {
@@ -66,7 +67,8 @@ const TasksSection = () => {
 	} = tasksContext;
 	const allTasks = [...toDoTasks, ...inProgressTasks, ...doneTasks];
 
-	const user = { email: 'yossarian@gmail.com' };
+	const authContext = useContext(AuthContext);
+	const { user } = authContext;
 
 	const [open, setOpen] = useState(false);
 	const [addMemberOpen, setAddMemberOpen] = useState(false);

@@ -16,6 +16,7 @@ const authReducer = (state, action) => {
 	switch (action.type) {
 		case SIGNIN_SUCCESS:
 		case SIGNUP_SUCCESS:
+			localStorage.setItem('user', JSON.stringify(action.payload.user));
 			return {
 				...state,
 				user: action.payload.user,
@@ -24,6 +25,7 @@ const authReducer = (state, action) => {
 			};
 
 		case SIGNOUT:
+			localStorage.removeItem('user');
 			return {
 				...state,
 
