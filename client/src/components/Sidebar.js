@@ -42,10 +42,10 @@ const Sidebar = () => {
 	const { groups, filtered, getGroupsForUser } = groupsContext;
 
 	const authContext = useContext(AuthContext);
-	const { signout } = authContext;
+	const { signout, user } = authContext;
 
 	useEffect(() => {
-		if (user && groups.length === 0) {
+		if (user) {
 			getGroupsForUser(user.email);
 		}
 		// eslint-disable-next-line
