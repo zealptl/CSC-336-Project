@@ -1,5 +1,6 @@
 import {
 	ADD_MEMBER,
+	CLEAR_GROUPS,
 	CLEAR_SEARCH,
 	CREATE_GROUP,
 	GET_GROUPS_FOR_USER,
@@ -31,7 +32,18 @@ const reducer = (state, action) => {
 				filtered: null,
 			};
 
+		case CLEAR_GROUPS:
+			console.log('IN CLEAR GROUPS');
+			return {
+				groups: [],
+				current: null,
+				filtered: null,
+				error: null,
+				loading: true,
+			};
+
 		case SET_CURRENT_GROUP:
+			console.log('IN SET CURRENT REDUCER');
 			return {
 				...state,
 				current: action.payload,

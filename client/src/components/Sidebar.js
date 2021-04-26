@@ -39,29 +39,22 @@ const Sidebar = () => {
 	const classes = useStyles();
 
 	const groupsContext = useContext(GroupsContext);
-	const { groups, filtered, getGroupsForUser } = groupsContext;
+	const { groups, filtered, getGroupsForUser, clearGroups } = groupsContext;
 
 	const authContext = useContext(AuthContext);
 	const { signout, user } = authContext;
 
 	useEffect(() => {
-		if (user) {
+		if (user && groups.length === 0) {
 			getGroupsForUser(user.email);
 		}
 		// eslint-disable-next-line
 	}, [user, groups]);
-	
 
 	const history = useHistory();
 
 	const onSignOut = () => {
-		signout();
-		history.push('/auth/signin');
-	};
-
-	const history = useHistory();
-
-	const onSignOut = () => {
+		clearGroups();
 		signout();
 		history.push('/auth/signin');
 	};

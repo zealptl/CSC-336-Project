@@ -7,6 +7,7 @@ import {
 	GET_GROUPS_FOR_USER,
 	SEARCH_GROUPS,
 	CLEAR_SEARCH,
+	CLEAR_GROUPS,
 	SET_CURRENT_GROUP,
 	CREATE_GROUP,
 	ADD_MEMBER,
@@ -54,7 +55,12 @@ const groupsState = (props) => {
 		dispatch({ type: CLEAR_SEARCH });
 	};
 
+	const clearGroups = () => {
+		dispatch({ type: CLEAR_GROUPS });
+	};
+
 	const setCurrent = (group) => {
+		console.log('IN SET CURRENT:', group);
 		dispatch({ type: SET_CURRENT_GROUP, payload: group });
 	};
 
@@ -109,6 +115,7 @@ const groupsState = (props) => {
 				getGroupsForUser,
 				searchGroups,
 				clearSearch,
+				clearGroups,
 				setCurrent,
 				createGroup,
 				addMember,

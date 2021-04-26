@@ -44,7 +44,13 @@ const GroupListItem = ({ group }) => {
 	const { setCurrent } = groupsContext;
 
 	return (
-		<div className={classes.container} onClick={() => setCurrent(group)}>
+		<div
+			className={classes.container}
+			onClick={(e) => {
+				e.preventDefault();
+				setCurrent(group);
+			}}
+		>
 			<div className={classes.bar}>{''} </div>
 			<Avatar className={classes.avatar}>{group.groupname[0]}</Avatar>
 			<h4 className={classes.groupName}>{group.groupname}</h4>
