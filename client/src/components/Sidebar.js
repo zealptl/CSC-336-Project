@@ -1,7 +1,11 @@
-import React from 'react';
+import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Button, makeStyles } from '@material-ui/core';
+import AuthContext from '../context/auth/authContext';
 
 import { AppLogo, GroupList, SearchAndAdd } from './index';
+
+import GroupsContext from '../context/groups/groupsContext';
 
 const useStyles = makeStyles((theme) => ({
 	container: {
@@ -31,17 +35,42 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
-const Sidebar = ({ groups }) => {
+const Sidebar = () => {
 	const classes = useStyles();
+
+	const groupsContext = useContext(GroupsContext);
+	const { groups, filtered, getGroupsForUser, clearGroups } = groupsContext;
+
+	const authContext = useContext(AuthContext);
+	const { signout, user } = authContext;
+
+	useEffect(() => {
+		if (user && groups.length === 0) {
+			getGroupsForUser(user.email);
+		}
+		// eslint-disable-next-line
+	}, [user, groups]);
+
+	const history = useHistory();
+
+	const onSignOut = () => {
+		clearGroups();
+		signout();
+		history.push('/auth/signin');
+	};
 
 	return (
 		<div className={classes.container}>
 			<AppLogo />
 			<SearchAndAdd />
-			<GroupList groups={groups} />
+			<GroupList groups={filtered === null ? groups : filtered} />
 
 			<div className={classes.signoutContianer}>
-				<Button variant='outlined' className={classes.signout}>
+				<Button
+					onClick={onSignOut}
+					variant='outlined'
+					className={classes.signout}
+				>
 					{' '}
 					Sign Out
 				</Button>

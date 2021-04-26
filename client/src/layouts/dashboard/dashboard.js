@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Grid, makeStyles } from '@material-ui/core';
 import { Widget as ChatWidget } from 'react-chat-widget';
 import 'react-chat-widget/lib/styles.css';
@@ -21,129 +21,15 @@ const useStyles = makeStyles((theme) => ({
 const Dashboard = () => {
 	const classes = useStyles();
 
-	const [groups, setGroups] = useState([
-		{
-			groupName: 'The Rocinante Crew',
-			groupMembers: [
-				'James Holden',
-				'Amos Burton',
-				'Naomi Nagata',
-				'Alex Kamal',
-			],
-		},
-		{
-			groupName: 'United Nations Navy',
-			groupMembers: [
-				'Chrisjen Avasarala',
-				'Agusto Nguyen',
-				'Michael Souther',
-				'Felix Delgado',
-			],
-		},
-		{
-			groupName: 'Martian Congressional Republic Navy',
-			groupMembers: [
-				'Bobby Draper',
-				'Emil Sauveterre',
-				'Theresa Yao',
-				'Alex Kamal',
-			],
-		},
-		{
-			groupName: 'Outer Planets Alliance',
-			groupMembers: [
-				'Fred Johnson',
-				'Anderson Dawes',
-				'Naomi Nagata',
-				'Klaes Ashford',
-				'Marco Inaros',
-			],
-		},
-		{
-			groupName: 'The Rocinante Crew',
-			groupMembers: [
-				'James Holden',
-				'Amos Burton',
-				'Naomi Nagata',
-				'Alex Kamal',
-			],
-		},
-		{
-			groupName: 'United Nations Navy',
-			groupMembers: [
-				'Chrisjen Avasarala',
-				'Agusto Nguyen',
-				'Michael Souther',
-				'Felix Delgado',
-			],
-		},
-		{
-			groupName: 'Martian Congressional Republic Navy',
-			groupMembers: [
-				'Bobby Draper',
-				'Emil Sauveterre',
-				'Theresa Yao',
-				'Alex Kamal',
-			],
-		},
-		{
-			groupName: 'Outer Planets Alliance',
-			groupMembers: [
-				'Fred Johnson',
-				'Anderson Dawes',
-				'Naomi Nagata',
-				'Klaes Ashford',
-				'Marco Inaros',
-			],
-		},
-		{
-			groupName: 'The Rocinante Crew',
-			groupMembers: [
-				'James Holden',
-				'Amos Burton',
-				'Naomi Nagata',
-				'Alex Kamal',
-			],
-		},
-		{
-			groupName: 'United Nations Navy',
-			groupMembers: [
-				'Chrisjen Avasarala',
-				'Agusto Nguyen',
-				'Michael Souther',
-				'Felix Delgado',
-			],
-		},
-		{
-			groupName: 'Martian Congressional Republic Navy',
-			groupMembers: [
-				'Bobby Draper',
-				'Emil Sauveterre',
-				'Theresa Yao',
-				'Alex Kamal',
-			],
-		},
-		{
-			groupName: 'Outer Planets Alliance',
-			groupMembers: [
-				'Fred Johnson',
-				'Anderson Dawes',
-				'Naomi Nagata',
-				'Klaes Ashford',
-				'Marco Inaros',
-			],
-		},
-	]);
-
 	return (
 		<div>
 			<Grid container spacing={3} className={classes.main}>
 				<Grid item xs={12} sm={3} className={classes.itemContainer}>
-					<Sidebar groups={groups} />
+					<Sidebar />
 				</Grid>
 
 				<Grid item xs={12} sm={9} className={classes.itemContainer}>
-					<TasksSection group={groups[0]} />
+					<TasksSection />
 				</Grid>
 			</Grid>
 
