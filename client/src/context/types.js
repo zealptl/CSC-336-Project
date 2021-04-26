@@ -10,6 +10,8 @@ export const ADD_MEMBER = 'ADD_MEMBER';
 export const GET_TASKS = 'GET_TASKS';
 export const CREATE_TASKS = 'CREATE_TASKS';
 export const UPDATE_TASK = 'UPDATE_TASK';
+export const CLEAR_TASKS = 'CLEAR_TASKS';
+
 export const SIGNIN_SUCCESS = 'SIGNIN_SUCCESS';
 export const SIGNUP_SUCCESS = 'SIGNUP_SUCCESS';
 export const SIGNIN_FAIL = 'SIGNIN_FAIL';

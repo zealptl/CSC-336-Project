@@ -1,4 +1,4 @@
-import { CREATE_TASKS, GET_TASKS, UPDATE_TASK } from '../types';
+import { CLEAR_TASKS, CREATE_TASKS, GET_TASKS, UPDATE_TASK } from '../types';
 
 const reducer = (state, action) => {
 	switch (action.type) {
@@ -32,6 +32,17 @@ const reducer = (state, action) => {
 			];
 
 			return { ...updatedState };
+
+		case CLEAR_TASKS:
+			return {
+				toDoTasks: [],
+				inProgressTasks: [],
+				doneTasks: [],
+
+				current: null,
+				error: null,
+				loading: true,
+			};
 
 		default:
 			return state;

@@ -1,12 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import { useHistory } from 'react-router-dom';
 import { Button, makeStyles } from '@material-ui/core';
-import AuthContext from '../context/auth/authContext';
 
 import { AppLogo, GroupList, SearchAndAdd } from './index';
 
+import AuthContext from '../context/auth/authContext';
 import GroupsContext from '../context/groups/groupsContext';
 import UserContext from '../context/users/userContext';
+import TasksContext from '../context/tasks/tasksContext';
 
 const useStyles = makeStyles((theme) => ({
 	container: {
@@ -48,6 +49,9 @@ const Sidebar = () => {
 	const userContext = useContext(UserContext);
 	const { clearMessages } = userContext;
 
+	const tasksContext = useContext(TasksContext);
+	const { clearTasks } = tasksContext;
+
 	useEffect(() => {
 		if (user && groups.length === 0) {
 			getGroupsForUser(user.email);
@@ -60,6 +64,7 @@ const Sidebar = () => {
 	const onSignOut = () => {
 		clearMessages();
 		clearGroups();
+		clearTasks();
 		signout();
 		history.push('/auth/signin');
 	};
