@@ -21,6 +21,8 @@ import path from 'path'
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 
+import cors from 'cors';
+
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
@@ -65,9 +67,10 @@ io.on('connection', client => {
     });
 });
 
-app.use(express.static(path.join(__dirname, 'testhtml')));
+//app.use(express.static(path.join(__dirname, 'testhtml')));
 
 app.use(bodyParser.json());
+app.use(cors());
 
 app.use('/api/user', userRouter);
 app.use('/api/group', groupRouter);
