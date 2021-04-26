@@ -1,6 +1,6 @@
 import React, { useEffect, useContext } from 'react';
 import { Grid, makeStyles } from '@material-ui/core';
-import { Widget as ChatWidget, addUserMessage, addResponseMessage } from 'react-chat-widget';
+import { Widget as ChatWidget, addUserMessage, addResponseMessage, dropMessages } from 'react-chat-widget';
 import 'react-chat-widget/lib/styles.css';
 import UserContext from '../../context/users/userContext'
 import AuthContext from '../../context/auth/authContext'
@@ -58,19 +58,23 @@ const Dashboard = () => {
 		if (user && current && messages.length === 0)
 			getMessagesByGroup(current.groupid);
 		// eslint-disable-next-line
-	  }, []);
+	  }, [user, current]);
 	  
-	if (messages.length > 0 && current) {
-		let messagesSet = [...new Set(messages)]; // turn into set to remove duplicates
-	
-		for (const message of messagesSet) {
-			if (message.groupid === current.groupid) {
-				if (user && message.useremail === user.email)
-					addUserMessage(message.body);
-				else addResponseMessage(message.body);
+	  useEffect(() => {
+		dropMessages();
+		if (messages.length > 0 && current) {
+			let messagesSet = [...new Set(messages)]; // turn into set to remove duplicates
+		
+			for (const message of messagesSet) {
+				if (message.groupid === current.groupid) {
+					if (user && message.useremail === user.email)
+						addUserMessage(message.body);
+					else addResponseMessage(message.body);
+				}
 			}
 		}
-	}
+	  }, [current]);
+	
 	
 	const handleNewUserMessage = (userMessage) => {
 		const formattedMessage = {
@@ -95,7 +99,7 @@ const Dashboard = () => {
 			</Grid>
 
 			<ChatWidget 
-				title='The Rocinante Crew' 
+				title={current && current.groupname}
 				subtitle='' 
 				handleNewUserMessage = { handleNewUserMessage }/>
 		</div>

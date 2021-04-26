@@ -11,7 +11,7 @@ const reducer = (state, action) => {
         case CREATE_MESSAGES:
             return {
                 ...state,
-                messages: [...state.messages, action.payload],
+                //messages: [...state.messages, action.payload],
             }
 
 		default:
