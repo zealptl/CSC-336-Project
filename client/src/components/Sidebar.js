@@ -1,5 +1,7 @@
 import React, { useContext, useEffect } from 'react';
+import { useHistory } from 'react-router-dom';
 import { Button, makeStyles } from '@material-ui/core';
+import AuthContext from '../context/auth/authContext';
 
 import { AppLogo, GroupList, SearchAndAdd } from './index';
 
@@ -38,14 +40,23 @@ const Sidebar = () => {
 
 	const groupsContext = useContext(GroupsContext);
 	const { groups, filtered, getGroupsForUser } = groupsContext;
-	const user = { email: 'yossarian@gmail.com' };
+
+	const authContext = useContext(AuthContext);
+	const { signout, user } = authContext;
 
 	useEffect(() => {
-		if (user && groups.length === 0) {
+		if (user) {
 			getGroupsForUser(user.email);
 		}
 		// eslint-disable-next-line
 	}, [user, groups]);
+
+	const history = useHistory();
+
+	const onSignOut = () => {
+		signout();
+		history.push('/auth/signin');
+	};
 
 	return (
 		<div className={classes.container}>
@@ -54,7 +65,11 @@ const Sidebar = () => {
 			<GroupList groups={filtered === null ? groups : filtered} />
 
 			<div className={classes.signoutContianer}>
-				<Button variant='outlined' className={classes.signout}>
+				<Button
+					onClick={onSignOut}
+					variant='outlined'
+					className={classes.signout}
+				>
 					{' '}
 					Sign Out
 				</Button>

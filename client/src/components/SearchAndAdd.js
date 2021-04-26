@@ -1,4 +1,4 @@
-import React, { useContext, useRef, useState } from 'react';
+import React, { useContext, useRef, useState, useEffect } from 'react';
 import {
 	Button,
 	TextField,
@@ -13,6 +13,7 @@ import {
 } from '@material-ui/core';
 
 import GroupsContext from '../context/groups/groupsContext';
+import AuthContext from '../context/auth/authContext';
 
 const useStyles = makeStyles((theme) => ({
 	container: {
@@ -55,6 +56,9 @@ const SearchAndAdd = () => {
 	const groupsContext = useContext(GroupsContext);
 	const { searchGroups, clearSearch, createGroup } = groupsContext;
 
+	const authContext = useContext(AuthContext);
+	const { user } = authContext;
+
 	const text = useRef();
 
 	const [open, setOpen] = useState(false);
@@ -63,9 +67,15 @@ const SearchAndAdd = () => {
 		userEmail: '',
 	});
 
-	const user = { email: 'yossarian@gmail.com' };
+	const [userEmails, setUserEmails] = useState([]);
 
-	const [userEmails, setUserEmails] = useState([user.email]);
+	useEffect(() => {
+		if (user) {
+			setUserEmails([...userEmails, user.email]);
+		}
+
+		// eslint-disable-next-line
+	}, [user]);
 
 	const onChange = (e) => {
 		if (text.current.value !== '') {
@@ -134,6 +144,7 @@ const SearchAndAdd = () => {
 			>
 				<DialogTitle id='form-dialog-title'>Create New Group</DialogTitle>
 				<DialogContent>
+					{/* <h4>Please add your email as well</h4> */}
 					<TextField
 						variant='outlined'
 						margin='normal'
