@@ -35,7 +35,6 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 io.on('connection', client => {
-    console.log("nick is a popop");
     // Expected format of message:{groupID, body}
     client.on('message', message => {
         console.log(message)
