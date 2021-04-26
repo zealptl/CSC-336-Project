@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Nick is dog popop</title>
+  </head>
+  <body>
+    <button id="nik">Nit</button>
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        const socket = io('');
+        document.getElementById('nik').addEventListener('click', () => {
+          console.log("is popop")
+        });
+        socket.emit("joinChat", "cathcart@gmail.com");
+        socket.emit("reply", {replyTo:56, message:{groupID:2, body:"cathybathy"}});
+        
+        socket.on("messageReceived", message => console.log("cat", message))
+    </script>
+  </body>
+</html>

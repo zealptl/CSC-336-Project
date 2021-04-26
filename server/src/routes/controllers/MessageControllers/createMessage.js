@@ -10,7 +10,7 @@ export async function createMessage(req, res) {
     
     const messageQuery = await db.query(queries.insertMessage([userEmail, groupID, body]));
     
-    res.json({successful: true});
+    res.json({message: messageQuery.rows[0]});
 }
 
 export default createMessage;

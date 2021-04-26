@@ -77,7 +77,8 @@ export default {
 	getMessagesFromUser: (values) => ({
 		name: 'get-message-from-user',
 		text: `SELECT * FROM Message
-               WHERE Message.userEmail = $1;`,
+               WHERE Message.userEmail = $1
+			   ORDER BY timeSent;`,
 		values,
 	}),
 	getMessagesFromGroup: (values) => ({
@@ -85,13 +86,14 @@ export default {
 		text: `SELECT * FROM Message
                LEFT JOIN Reply
                ON Message.messageID = Reply.originalMessage
-               WHERE groupID = $1;`,
+               WHERE groupID = $1
+			   ORDER BY timeSent;`,
 		values,
 	}),
 	insertMessage: (values) => ({
 		name: 'insert-message',
 		text: `INSERT INTO Message (userEmail, groupID, body)
-               VALUES ($1, $2, $3) RETURNING messageID;`,
+               VALUES ($1, $2, $3) RETURNING *;`,
 		values,
 	}),
 	getTasksFromGroup: (values) => ({

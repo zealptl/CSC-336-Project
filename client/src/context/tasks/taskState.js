@@ -3,7 +3,7 @@ import React, { useReducer } from 'react';
 import axios from 'axios';
 import TasksContext from './tasksContext';
 import TasksReducer from './taskReducer';
-import { CREATE_TASKS, GET_TASKS, UPDATE_TASK } from '../types';
+import { CLEAR_TASKS, CREATE_TASKS, GET_TASKS, UPDATE_TASK } from '../types';
 
 const tasksState = (props) => {
 	const initialState = {
@@ -109,6 +109,10 @@ const tasksState = (props) => {
 		} catch (error) {}
 	};
 
+	const clearTasks = () => {
+		dispatch({ type: CLEAR_TASKS });
+	};
+
 	return (
 		<TasksContext.Provider
 			value={{
@@ -121,6 +125,7 @@ const tasksState = (props) => {
 				getTasks,
 				createTask,
 				updateTask,
+				clearTasks,
 			}}
 		>
 			{props.children}{' '}

@@ -11,6 +11,7 @@ import theme from './theme';
 import GroupsState from './context/groups/groupsState';
 import TasksState from './context/tasks/taskState';
 import AuthState from './context/auth/authState';
+import UserState from './context/users/userState'
 
 import { SignIn, SignUp } from './layouts/auth';
 import { Dashboard } from './layouts/dashboard';
@@ -18,21 +19,23 @@ import { Dashboard } from './layouts/dashboard';
 const App = () => {
 	return (
 		<AuthState>
-			<GroupsState>
-				<TasksState>
-					<ThemeProvider theme={theme}>
-						<CssBaseline />
-						<Router>
-							<div className='App'>
-								<Switch>
-									<Route path='/auth' component={AuthRouting} />
-									<Route path='/dashboard' component={DashboardRouting} />
-								</Switch>
-							</div>
-						</Router>
-					</ThemeProvider>
-				</TasksState>
-			</GroupsState>
+			<UserState>
+				<GroupsState>
+					<TasksState>
+						<ThemeProvider theme={theme}>
+							<CssBaseline />
+							<Router>
+								<div className='App'>
+									<Switch>
+										<Route path='/auth' component={AuthRouting} />
+										<Route path='/dashboard' component={DashboardRouting} />
+									</Switch>
+								</div>
+							</Router>
+						</ThemeProvider>
+					</TasksState>
+				</GroupsState>
+			</UserState>
 		</AuthState>
 	);
 };
