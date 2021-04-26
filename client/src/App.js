@@ -10,27 +10,30 @@ import theme from './theme';
 
 import GroupsState from './context/groups/groupsState';
 import TasksState from './context/tasks/taskState';
+import AuthState from './context/auth/authState';
 
 import { SignIn, SignUp } from './layouts/auth';
 import { Dashboard } from './layouts/dashboard';
 
 const App = () => {
 	return (
-		<GroupsState>
-			<TasksState>
-				<ThemeProvider theme={theme}>
-					<CssBaseline />
-					<Router>
-						<div className='App'>
-							<Switch>
-								<Route path='/auth' component={AuthRouting} />
-								<Route path='/dashboard' component={DashboardRouting} />
-							</Switch>
-						</div>
-					</Router>
-				</ThemeProvider>
-			</TasksState>
-		</GroupsState>
+		<AuthState>
+			<GroupsState>
+				<TasksState>
+					<ThemeProvider theme={theme}>
+						<CssBaseline />
+						<Router>
+							<div className='App'>
+								<Switch>
+									<Route path='/auth' component={AuthRouting} />
+									<Route path='/dashboard' component={DashboardRouting} />
+								</Switch>
+							</div>
+						</Router>
+					</ThemeProvider>
+				</TasksState>
+			</GroupsState>
+		</AuthState>
 	);
 };
 
