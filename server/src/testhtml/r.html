@@ -9,7 +9,7 @@
     <script>
         const socket = io('');
         document.getElementById('nik').addEventListener('click', () => {
-          console.log("is popop")
+          console.log("world")
         });
         socket.emit("joinChat", "cathcart@gmail.com");
         socket.emit("reply", {replyTo:56, message:{groupID:2, body:"cathybathy"}});

@@ -2,7 +2,7 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
-    <title>Nick is dog popop</title>
+    <title>Hello World</title>
   </head>
   <body>
     <button id="nik">Nit</button>
@@ -10,13 +10,13 @@
     <script>
         const socket = io('');
         document.getElementById('nik').addEventListener('click', () => {
-          console.log("is popop")
+          console.log("world")
         });
         socket.emit("joinChat", "yossarian@gmail.com");
         socket.emit("message", {groupID:3, body:"po"})
         
         socket.on("messageReceived", message => console.log("YoSar", message))
-        socket.on("replyReceived", reply => console.log("HELLO I AM NOT POPOP BUT NUCH IS", reply));
+        socket.on("replyReceived", reply => console.log("HELLO BOY", reply));
     </script>
   </body>
 </html>
