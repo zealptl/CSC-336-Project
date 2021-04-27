@@ -51,6 +51,13 @@ npm run dev
 6. Change the status of a task by clicking on the "Move Task" button to move it from 1 section to another (e.g. from "To Do" to "In Progress").
 7. Click on the chat widget in the bottom-left corner to chat with your fellow group members.
 
+## Postman Setup
+To test the server APIs and database returns with Postman, follow these steps:
+1. Install [Postman](https://www.postman.com/)
+1. Launch Postman and go to File->Import and select `Postman Server APIs.json` from this directory
+1. Make sure all the servers are running using the steps from "How to use the app" above.
+1. Choose an API to send a request to. Example calls are provided for each API.
+
 
 ### App Walkthough GIF
 
