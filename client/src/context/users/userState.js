@@ -33,15 +33,15 @@ const userState = (props) => {
 
 	const postToMessage = async (postData) => {
 		try {
-			const res = await axios.post(
-				`http://localhost:8080/api/message/`,
-				postData
-			);
+			// const res = await axios.post(
+			// 	`http://localhost:8080/api/message/`,
+			// 	postData
+			// );
 
-			dispatch({
-				type: CREATE_MESSAGES,
-				payload: res.data.message,
-			});
+			// dispatch({
+			// 	type: CREATE_MESSAGES,
+			// 	payload: res.data.message,
+			// });
 		} catch (error) {
 			console.log(error.response.data.msg);
 		}

@@ -34,14 +34,19 @@ const PORT = 8080;
 // init app
 let app = express();
 const server = http.createServer(app);
-const io = new Server(server);
+const io = new Server(server, {
+    cors: {
+      origin: 'http://localhost:3000',
+      methods: ["GET", "POST"]
+    }
+});
 
 io.on('connection', client => {
     // Expected format of message:{groupID, body}
     client.on('message', message => {
         console.log(message)
         sendMessage(client.id, message);
-        io
+        client
             .to(formatGroup(message.groupID))
             .emit('messageReceived', formatMessage(client.id, message));
     });
@@ -50,7 +55,7 @@ io.on('connection', client => {
     client.on('reply', reply => {
         console.log("AM REPLY");
         sendReply(client.id, reply);
-        io 
+        client
             .to(formatGroup(reply.message.groupID))
             .emit('replyReceived', formatMessage(client.id, reply));
     });

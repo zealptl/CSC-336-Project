@@ -31,6 +31,7 @@ const useStyles = makeStyles((theme) => ({
 	},
 }));
 
+let currentSocket;
 const Dashboard = () => {
 	const classes = useStyles();
 
@@ -44,14 +45,17 @@ const Dashboard = () => {
 	const { current } = groupsContext;
 
 	useEffect(() => {
-		const socket = io('http://localhost:8080');
-
-		if (user) socket.emit('joinChat', user.email);
-
-		socket.on('messageReceived', (message) => {
+		if (currentSocket)
+			currentSocket.disconnect();
+			
+		currentSocket = io('http://localhost:8080');
+		if (user) 
+			currentSocket.emit('joinChat', user.email);
+		
+		currentSocket.on('messageReceived', (message) => {
 			addResponseMessage(message.body);
 		});
-	}, []);
+	}, [user]);
 
 	useEffect(() => {
 		if (user && current && messages.length === 0)
@@ -80,7 +84,8 @@ const Dashboard = () => {
 			groupID: current.groupid,
 			body: userMessage,
 		};
-
+		
+		currentSocket.emit('message', formattedMessage);
 		postToMessage(formattedMessage);
 	};
 
