@@ -55,7 +55,7 @@ npm run dev
 To test the server APIs and database returns with Postman, follow these steps:
 1. Install [Postman](https://www.postman.com/)
 1. Launch Postman and go to File->Import and select `Postman Server APIs.json` from this directory
-1. Make sure all the servers are running using the steps from "How to use the app" above.
+1. Make sure all the servers are running using the steps above.
 1. Choose an API to send a request to. Example calls are provided for each API.
 
 
