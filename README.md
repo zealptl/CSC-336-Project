@@ -43,12 +43,13 @@ npm run dev
 
 ## How to use the app:
 
-1. Create an account.
-2. Log in.
-3. Create a new group and add members to your group by entering their emails. Feel free to create multiple groups and move between them.
-4. Create a new task and set its current status.
-5. Change the status of a task by clicking on the "Move Task" button to move it from 1 section to another (e.g. from "To Do" to "In Progress").
-6. Click on the chat widget in the bottom-left corner to chat with your fellow group members.
+1. Go to localhost:3000/auth for the signin page. Upon successful signin, you will be taken to your dashboard.
+2. Create an account.
+3. Log in.
+4. Create a new group and add members to your group by entering their emails. Feel free to create multiple groups and move between them.
+5. Create a new task and set its current status.
+6. Change the status of a task by clicking on the "Move Task" button to move it from 1 section to another (e.g. from "To Do" to "In Progress").
+7. Click on the chat widget in the bottom-left corner to chat with your fellow group members.
 
 
 ### App Walkthough GIF
